@@ -1,7 +1,7 @@
 package me.barta.stayintouch.contactlist
 
-import android.content.Context
 import me.barta.stayintouch.common.ui.MVPPresenter
+import me.barta.stayintouch.datastore.database.DatabaseHelper
 import javax.inject.Inject
 
 /**
@@ -9,6 +9,10 @@ import javax.inject.Inject
  */
 class ContactListPresenter
 @Inject
-constructor(private val context: Context) : MVPPresenter<ContactListContract.View>(), ContactListContract.Presenter<ContactListContract.View> {
+constructor(private val databaseHelper: DatabaseHelper) :
+        MVPPresenter<ContactListContract.View>(), ContactListContract.Presenter<ContactListContract.View> {
 
+    override fun loadData() {
+        println(databaseHelper.loadCategories())
+    }
 }
