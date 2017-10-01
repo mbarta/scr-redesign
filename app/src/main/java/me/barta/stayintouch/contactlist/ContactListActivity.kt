@@ -1,7 +1,8 @@
 package me.barta.stayintouch.contactlist
 
 import android.os.Bundle
-import android.os.PersistableBundle
+import kotlinx.android.synthetic.main.activity_contact_list.*
+import me.barta.stayintouch.R
 import me.barta.stayintouch.StayInTouchApplication
 import me.barta.stayintouch.common.ui.MVPActivity
 
@@ -13,12 +14,23 @@ class ContactListActivity : MVPActivity<ContactListContract.View, ContactListPre
     override fun createComponent(): ContactListComponent =
             DaggerContactListComponent.builder().applicationComponent(StayInTouchApplication.component).build()
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_contact_list)
+
+        setUpViews()
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenter.loadData()
+    private fun setUpViews() {
+        setSupportActionBar(toolbar)
+        setUpViewPager()
+    }
+
+    private fun setUpViewPager() {
+        val mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager,
+                presenter.loadCategories()) { presenter.getFragmentForPosition(it) }
+
+        viewPager.adapter = mSectionsPagerAdapter
+        viewPager.offscreenPageLimit = 1
     }
 }
