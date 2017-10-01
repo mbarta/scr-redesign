@@ -14,15 +14,9 @@ import me.barta.stayintouch.datastore.models.ContactCategory
 class SectionsPagerAdapter(fm: FragmentManager, private val contactCategories: List<ContactCategory>,
                            private val FragmentProviderFor: (Int) -> Fragment) : FragmentStatePagerAdapter(fm) {
 
-    override fun getItem(position: Int): Fragment {
-        return FragmentProviderFor(position)
-    }
+    override fun getItem(position: Int): Fragment = FragmentProviderFor(position)
 
-    override fun getCount(): Int {
-        return contactCategories.size
-    }
+    override fun getCount(): Int = contactCategories.size
 
-    override fun getPageTitle(position: Int): CharSequence {
-        return contactCategories[position].name
-    }
+    override fun getPageTitle(position: Int): CharSequence = contactCategories[position].name
 }
