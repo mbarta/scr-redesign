@@ -11,7 +11,7 @@ interface ContactListContract {
     }
 
     interface Presenter<V : View> : MVPContract.Presenter<V> {
-//        fun loadThings()
+        fun loadData()
     }
 
     interface Component<V : View , out P : Presenter<V>> : MVPContract.Component<V,P>
