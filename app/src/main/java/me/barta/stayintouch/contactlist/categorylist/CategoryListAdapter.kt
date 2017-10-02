@@ -3,8 +3,10 @@ package me.barta.stayintouch.contactlist.categorylist
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.contact_list_item.view.*
 import me.barta.stayintouch.R
 import me.barta.stayintouch.common.utils.inflate
+import me.barta.stayintouch.common.utils.loadUrl
 import me.barta.stayintouch.datastore.models.ContactPerson
 
 /**
@@ -27,8 +29,9 @@ class CategoryListAdapter(private val contactList: List<ContactPerson>, private 
     class ContactViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(item: ContactPerson, listener: (ContactPerson) -> Unit) = with(itemView) {
-//            itemTitle.text = item.title
-//            itemImage.loadUrl(item.url)
+            name.text = "${item.firstName} ${item.lastName}"
+            nextContact.text = "Next contact: ${item.nextContact}"
+            photo.loadUrl(item.photo)
             setOnClickListener { listener(item) }
         }
     }
