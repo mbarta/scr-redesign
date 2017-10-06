@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ToolbarBackgroundView">
+        <attr name="topMargin" format="dimension" />
+        <attr name="gradientColorStart" format="color" />
+        <attr name="gradientColorEnd" format="color" />
+    </declare-styleable>
+</resources>

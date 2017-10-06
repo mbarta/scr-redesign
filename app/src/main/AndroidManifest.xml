@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".contactlist.ContactListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar.Transparent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
