@@ -16,7 +16,10 @@ class DatabaseHelper {
         @JvmStatic private val CATEGORIES = arrayListOf(
                 ContactCategory(0, "Friends"),
                 ContactCategory(1, "Family"),
-                ContactCategory(2, "Work")
+                ContactCategory(2, "Work"),
+                ContactCategory(3, "Yoga"),
+                ContactCategory(4, "Golf"),
+                ContactCategory(5, "School")
         )
 
         @JvmStatic private val CONTACTS = arrayListOf(

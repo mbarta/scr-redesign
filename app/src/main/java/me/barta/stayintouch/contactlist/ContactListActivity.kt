@@ -2,11 +2,14 @@ package me.barta.stayintouch.contactlist
 
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
+import android.support.design.widget.TabLayout
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_contact_list.*
 import me.barta.stayintouch.R
 import me.barta.stayintouch.StayInTouchApplication
 import me.barta.stayintouch.common.ui.MVPActivity
-
+import me.barta.stayintouch.common.utils.animateTextSize
+import me.barta.stayintouch.common.utils.getFontSize
 
 
 /**
@@ -55,8 +58,28 @@ class ContactListActivity : MVPActivity<ContactListContract.View, ContactListPre
         viewPager.adapter = mSectionsPagerAdapter
         viewPager.offscreenPageLimit = 2
 
+        tabs.addOnTabSelectedListener(
+                object : TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
+                    override fun onTabSelected(tab: TabLayout.Tab) {
+                        super.onTabSelected(tab)
+
+                        val textView = tab.customView as TextView
+                        textView.animateTextSize(resources.getFontSize(R.dimen.tab_text_size),
+                                resources.getFontSize(R.dimen.tab_text_selected_size),
+                                250)
+
+                    }
+
+                    override fun onTabUnselected(tab: TabLayout.Tab) {
+                        super.onTabSelected(tab)
+
+                        val textView = tab.customView as TextView
+                        textView.animateTextSize(resources.getFontSize(R.dimen.tab_text_selected_size),
+                                resources.getFontSize(R.dimen.tab_text_size),
+                                250)
+                    }
+                })
+
         tabs.setupWithViewPager(viewPager)
     }
-
-
 }

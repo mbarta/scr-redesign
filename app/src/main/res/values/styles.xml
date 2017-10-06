@@ -25,6 +25,25 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="AppTheme.TabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabBackground">?attr/selectableItemBackground</item>
+        <item name="tabMode">scrollable</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabPaddingStart">24dp</item>
+        <item name="tabPaddingEnd">24dp</item>
+        <item name="tabMinWidth">96dp</item>
+        <item name="tabIndicatorHeight">0dp</item>
+    </style>
+    
+    <style name="AppTheme.TabLayoutText" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@drawable/tab_text_color</item>
+        <item name="android:textSize">@dimen/tab_text_size</item>
+        <item name="android:fontFamily">"sans-serif-medium"</item>
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
     <style name="ContactListItem" parent="CardView" />
 
     <style name="ContactListItem.PrimaryText" parent="TextAppearance.AppCompat.Medium">
