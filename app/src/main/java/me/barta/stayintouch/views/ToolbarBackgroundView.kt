@@ -61,7 +61,7 @@ class ToolbarBackgroundView : View {
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        gradient = LinearGradient(0f, 0f, 0f, h.toFloat(), gradientColourTop, gradientColourBottom, Shader.TileMode.MIRROR)
+        gradient = LinearGradient(0f, 0f, w.toFloat(), h * 2f, gradientColourTop, gradientColourBottom, Shader.TileMode.MIRROR)
         paint.shader = gradient
     }
 

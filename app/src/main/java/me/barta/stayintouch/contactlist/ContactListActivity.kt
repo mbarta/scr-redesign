@@ -56,7 +56,7 @@ class ContactListActivity : MVPActivity<ContactListContract.View, ContactListPre
                 presenter.loadCategories()) { presenter.getFragmentForPosition(it) }
 
         viewPager.adapter = mSectionsPagerAdapter
-        viewPager.offscreenPageLimit = 2
+        viewPager.offscreenPageLimit = 5
 
         tabs.addOnTabSelectedListener(
                 object : TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
