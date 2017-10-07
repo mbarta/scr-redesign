@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/card_action_button" />
+    <solid android:color="@color/deep_purple600" />
     <corners android:radius="10dp" />
     <padding android:bottom="8dp"
         android:left="8dp"

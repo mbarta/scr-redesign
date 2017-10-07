@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v4.content.ContextCompat
 import android.view.MenuItem
+import android.view.animation.AnimationUtils
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_contact_detail.*
@@ -32,6 +33,7 @@ class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDet
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contact_detail)
+
         supportPostponeEnterTransition()
 
         setUpViews()
@@ -107,5 +109,25 @@ class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDet
         nextContact.text = "Next contact: ${contact.nextContact}"
 
         frequency.text = contact.contactFreq
+
+
+    }
+
+    override fun onEnterAnimationComplete() {
+        super.onEnterAnimationComplete()
+
+//        val originalPos = contactButton.y
+//        contactButton.y = resources.displayMetrics.heightPixels
+
+        val slideAnim = AnimationUtils.loadAnimation(this, R.anim.slide_from_bottom)
+        contactButton.startAnimation(slideAnim)
+//
+//        val contactButtonAnimation = ObjectAnimator.ofFloat(contactButton, "y", resources.displayMetrics.heightPixels.toFloat(), 0f)
+//        with(contactButtonAnimation) {
+//            duration = 1000
+//            setEvaluator(FloatEvaluator())
+//            interpolator = AccelerateDecelerateInterpolator()
+//            start()
+//        }
     }
 }

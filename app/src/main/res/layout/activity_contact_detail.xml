@@ -20,7 +20,7 @@
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentScrim="@color/toolbar_gradient_start"
+            app:contentScrim="@color/indigo700"
             app:titleEnabled="false"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -32,8 +32,8 @@
                 <me.barta.stayintouch.views.ToolbarBackgroundView
                     android:id="@+id/toolbarArcBackground"
                     app:topMargin="?attr/actionBarSize"
-                    app:gradientColorStart="@color/toolbar_gradient_start"
-                    app:gradientColorEnd="@color/toolbar_gradient_end"
+                    app:gradientColorStart="@color/indigo700"
+                    app:gradientColorEnd="@color/purple800"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
@@ -56,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        app:behavior_overlapTop="128dp"
+        app:behavior_overlapTop="240dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <include
@@ -70,15 +70,13 @@
         android:id="@+id/contactButton"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:layout_marginBottom="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
         android:background="@drawable/rectangle"
-        android:clickable="true"
         android:elevation="8dp"
         app:layout_anchor="@id/scrollView"
         app:layout_anchorGravity="bottom|center_horizontal"
-
+        app:layout_behavior="me.barta.stayintouch.views.ContactButtonScrollingBehavior"
         android:orientation="horizontal" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -30,8 +30,8 @@
                 <me.barta.stayintouch.views.ToolbarBackgroundView
                 android:id="@+id/toolbarArcBackground"
                 app:topMargin="?attr/actionBarSize"
-                app:gradientColorStart="@color/toolbar_gradient_start"
-                app:gradientColorEnd="@color/toolbar_gradient_end"
+                app:gradientColorStart="@color/indigo700"
+                app:gradientColorEnd="@color/purple800"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
