@@ -20,13 +20,14 @@
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:contentScrim="@color/toolbar_gradient_start"
             app:titleEnabled="false"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <FrameLayout
                 android:id="@+id/collapsing_content"
                 android:layout_width="match_parent"
-                android:layout_height="280dp">
+                android:layout_height="360dp">
 
                 <me.barta.stayintouch.views.ToolbarBackgroundView
                     android:id="@+id/toolbarArcBackground"
@@ -66,6 +67,7 @@
     </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
+        android:id="@+id/contactButton"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_marginBottom="24dp"

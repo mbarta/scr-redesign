@@ -3,7 +3,9 @@ package me.barta.stayintouch.contactlist.categorylist
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
+import android.support.v4.util.Pair
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -54,14 +56,16 @@ class CategoryListFragment : MVPFragment<CategoryListContract.View, CategoryList
     }
 
     override fun presentLoadedData(data: List<ContactPerson>) {
-        val adapter = CategoryListAdapter(data, { contact -> startDetailActivityForContact(contact) })
+        val adapter = CategoryListAdapter(data, { contact, photoView -> startDetailActivityForContact(contact, photoView) })
         list.adapter = adapter
     }
 
-    private fun startDetailActivityForContact(contact: ContactPerson) {
+    private fun startDetailActivityForContact(contact: ContactPerson, photoView: View) {
         val intent = Intent(context, ContactDetailActivity::class.java)
         intent.putExtra(ContactDetailActivity.CONTACT_ID, contact.id)
-        startActivity(intent)
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+                Pair.create(photoView, photoView.transitionName))
+        startActivity(intent, options.toBundle())
     }
 
 }

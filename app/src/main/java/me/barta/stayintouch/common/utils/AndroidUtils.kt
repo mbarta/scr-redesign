@@ -8,9 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
-import android.widget.ImageView
 import android.widget.TextView
-import com.squareup.picasso.Picasso
 
 /**
  * Android utility functions
@@ -18,10 +16,6 @@ import com.squareup.picasso.Picasso
 
 fun ViewGroup.inflate(layoutRes: Int): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, false)
-}
-
-fun ImageView.loadUrl(url: String) {
-    Picasso.with(context).load(url).into(this)
 }
 
 fun Resources.getFontSize(@DimenRes dimensionResource: Int): Float {

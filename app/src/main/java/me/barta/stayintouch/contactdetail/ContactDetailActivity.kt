@@ -4,13 +4,17 @@ import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v4.content.ContextCompat
+import android.view.MenuItem
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_contact_detail.*
 import kotlinx.android.synthetic.main.contact_detail_content.*
 import me.barta.stayintouch.R
 import me.barta.stayintouch.StayInTouchApplication
 import me.barta.stayintouch.common.ui.MVPActivity
-import me.barta.stayintouch.common.utils.loadUrl
 import me.barta.stayintouch.datastore.models.ContactPerson
+
+
 
 /**
  * Contact detail Activity
@@ -19,6 +23,7 @@ class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDet
 
     companion object {
         const val CONTACT_ID = "ContactIdExtra"
+        const val SHARED_PICTURE_ID = "ContactPicture"
     }
 
     override fun createComponent(): ContactDetailComponent =
@@ -27,6 +32,7 @@ class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDet
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contact_detail)
+        supportPostponeEnterTransition()
 
         setUpViews()
     }
@@ -34,6 +40,8 @@ class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDet
     override fun onResume() {
         super.onResume()
         val contactId = intent?.extras?.getInt(CONTACT_ID) ?: -1
+        photoCard.transitionName = SHARED_PICTURE_ID + contactId
+
         presenter.loadContactById(contactId)
     }
 
@@ -68,8 +76,33 @@ class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDet
         })
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                supportFinishAfterTransition()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun displayContact(contact: ContactPerson) {
-        photo.loadUrl(contact.photo)
+
+        Picasso.with(this)
+                .load(contact.photo)
+                .noFade()
+                .into(photo, object : Callback {
+                    override fun onSuccess() {
+                        supportStartPostponedEnterTransition()
+                    }
+
+                    override fun onError() {
+                        supportStartPostponedEnterTransition()
+                    }
+                })
+
+        toolbarArcBackground.setBitmapByUrl(contact.photo)
+
         name.text = "${contact.firstName} ${contact.lastName}"
         nextContact.text = "Next contact: ${contact.nextContact}"
 
