@@ -34,6 +34,7 @@ class ContactListActivity : MVPActivity<ContactListContract.View, ContactListPre
 
     private fun setUpToolbar() {
         setSupportActionBar(toolbar)
+        actionBar?.title = ""
 
         appBar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
             internal var scrollRange = -1

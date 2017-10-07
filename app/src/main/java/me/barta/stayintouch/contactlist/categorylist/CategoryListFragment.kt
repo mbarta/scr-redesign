@@ -49,8 +49,7 @@ class CategoryListFragment : MVPFragment<CategoryListContract.View, CategoryList
     }
 
     private fun setUpViews() {
-        val layoutManager = LinearLayoutManager(context)
-        list.layoutManager = layoutManager
+        list.layoutManager = LinearLayoutManager(context)
     }
 
     override fun presentLoadedData(data: List<ContactPerson>) {

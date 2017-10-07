@@ -11,6 +11,7 @@
         android:clipToPadding="false"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
+        android:layoutAnimation="@anim/item_anim_from_left"
         tools:listitem="@layout/contact_list_item" />
 
 </FrameLayout>
