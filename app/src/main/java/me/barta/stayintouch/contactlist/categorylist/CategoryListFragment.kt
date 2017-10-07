@@ -1,10 +1,10 @@
 package me.barta.stayintouch.contactlist.categorylist
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.fragment_category_list.*
 import me.barta.stayintouch.R
 import me.barta.stayintouch.StayInTouchApplication
 import me.barta.stayintouch.common.ui.MVPFragment
+import me.barta.stayintouch.contactdetail.ContactDetailActivity
 import me.barta.stayintouch.datastore.models.ContactPerson
 
 
@@ -53,8 +54,14 @@ class CategoryListFragment : MVPFragment<CategoryListContract.View, CategoryList
     }
 
     override fun presentLoadedData(data: List<ContactPerson>) {
-        val adapter = CategoryListAdapter(data, { contact -> Log.d("CLICK", "Clicked on $contact") })
+        val adapter = CategoryListAdapter(data, { contact -> startDetailActivityForContact(contact) })
         list.adapter = adapter
+    }
+
+    private fun startDetailActivityForContact(contact: ContactPerson) {
+        val intent = Intent(context, ContactDetailActivity::class.java)
+        intent.putExtra(ContactDetailActivity.CONTACT_ID, contact.id)
+        startActivity(intent)
     }
 
 }

@@ -23,6 +23,7 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.ToolbarTitle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title" />
@@ -36,7 +37,7 @@
         <item name="tabMinWidth">96dp</item>
         <item name="tabIndicatorHeight">0dp</item>
     </style>
-    
+
     <style name="AppTheme.TabLayoutText" parent="TextAppearance.AppCompat.Medium">
         <item name="android:textColor">@drawable/tab_text_color</item>
         <item name="android:textSize">@dimen/tab_text_size</item>

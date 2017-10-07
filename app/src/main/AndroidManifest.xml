@@ -5,11 +5,11 @@
     <application
         android:name=".StayInTouchApplication"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="SRC redesign"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:hardwareAccelerated="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".contactlist.ContactListActivity"
@@ -19,6 +19,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".contactdetail.ContactDetailActivity"
+            android:label=""
+            android:parentActivityName=".contactlist.ContactListActivity"
+            android:theme="@style/AppTheme.NoActionBar.Transparent">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="me.barta.stayintouch.contactlist.ContactListActivity" />
         </activity>
     </application>
 

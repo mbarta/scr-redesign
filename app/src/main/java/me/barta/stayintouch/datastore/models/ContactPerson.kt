@@ -14,5 +14,7 @@ data class ContactPerson(
         val lastContact: LocalDateTime,
         val nextContact: LocalDateTime,
         val birthday: LocalDate,
-        val photo: String
+        val photo: String,
+        val contactFreq: String,
+        val karma: Int
 )
