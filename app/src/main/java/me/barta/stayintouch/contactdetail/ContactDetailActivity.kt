@@ -6,6 +6,7 @@ import android.support.design.widget.AppBarLayout
 import android.support.v4.content.ContextCompat
 import android.view.MenuItem
 import android.view.animation.AnimationUtils
+import android.view.animation.LinearInterpolator
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_contact_detail.*
@@ -13,8 +14,11 @@ import kotlinx.android.synthetic.main.contact_detail_content.*
 import me.barta.stayintouch.R
 import me.barta.stayintouch.StayInTouchApplication
 import me.barta.stayintouch.common.ui.MVPActivity
+import me.barta.stayintouch.common.utils.setColoredRating
+import me.barta.stayintouch.common.utils.toLegacyDate
 import me.barta.stayintouch.datastore.models.ContactPerson
-
+import org.ocpsoft.prettytime.PrettyTime
+import java.util.*
 
 
 /**
@@ -36,6 +40,7 @@ class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDet
 
         supportPostponeEnterTransition()
 
+        infoCardContents.alpha = 0f
         setUpViews()
     }
 
@@ -105,29 +110,32 @@ class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDet
 
         toolbarArcBackground.setBitmapByUrl(contact.photo)
 
+        val pt = PrettyTime(Locale.getDefault())
+
         name.text = "${contact.firstName} ${contact.lastName}"
-        lastContact.text = "Next contact: ${contact.nextContact}"
+        lastContact.text = "Contacted: ${pt.format(contact.lastContact.toLegacyDate())}"
+        nextContact.text = "Next in: ${pt.format(contact.nextContact.toLegacyDate())}"
+
+        val colorList: Array<Int> = arrayOf(R.color.red300, R.color.red300, R.color.orange300, R.color.orange300, R.color.light_green300)
+        ratingBar.setColoredRating(contact.karma, colorList)
+        rating.text = "${contact.karma} / 5"
+        rating.setTextColor(ContextCompat.getColorStateList(this,colorList[contact.karma - 1]))
 
         frequency.text = contact.contactFreq
-
-
     }
 
     override fun onEnterAnimationComplete() {
         super.onEnterAnimationComplete()
-
-//        val originalPos = contactButton.y
-//        contactButton.y = resources.displayMetrics.heightPixels
-
-        val slideAnim = AnimationUtils.loadAnimation(this, R.anim.slide_from_bottom)
+        val slideAnim = AnimationUtils.loadAnimation(this@ContactDetailActivity, R.anim.slide_from_bottom)
         contactButton.startAnimation(slideAnim)
-//
-//        val contactButtonAnimation = ObjectAnimator.ofFloat(contactButton, "y", resources.displayMetrics.heightPixels.toFloat(), 0f)
-//        with(contactButtonAnimation) {
-//            duration = 1000
-//            setEvaluator(FloatEvaluator())
-//            interpolator = AccelerateDecelerateInterpolator()
-//            start()
-//        }
+
+        val alphaAnim = infoCardContents.animate()
+                .alpha(1.0f)
+                .setDuration(500)
+                .setInterpolator(LinearInterpolator())
+
+        alphaAnim.start()
     }
+
+
 }

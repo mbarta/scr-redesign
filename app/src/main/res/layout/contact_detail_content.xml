@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:clipToPadding="false"
+    android:paddingBottom="16dp"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="81dp">
 
@@ -14,7 +16,7 @@
         android:layout_height="48dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         app:cardCornerRadius="2dp"
         app:cardElevation="8dp"
         app:layout_constraintEnd_toEndOf="@+id/infoCard"
@@ -23,9 +25,14 @@
 
         <TextView
             android:id="@+id/frequency"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:drawableEnd="@drawable/ic_arrow_drop_down_grey_24dp"
+            android:drawablePadding="8dp"
             android:gravity="center"
+            android:paddingStart="8dp"
+            android:textAlignment="center"
             android:textAppearance="@style/ContactListItem.SecondaryText"
             android:textSize="16sp"
             tools:text="Once a week" />
@@ -36,7 +43,7 @@
         android:layout_width="132dp"
         android:layout_height="180dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="8dp"
         app:layout_constraintStart_toStartOf="@+id/infoCard"
@@ -53,39 +60,23 @@
     <android.support.v7.widget.CardView
         android:id="@+id/infoCard"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="32dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="3dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/photoCard">
 
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/infoCardContents"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="8dp"
-            android:paddingEnd="8dp"
-            android:paddingStart="32dp"
-            android:paddingTop="8dp"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="0dp">
-
-            <TextView
-                android:id="@+id/name"
-                style="@style/ContactListItem.PrimaryText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="40dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/verticalGuideline"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Kong Skull Island" />
 
             <TextView
                 android:id="@+id/lastContact"
@@ -100,12 +91,51 @@
                 app:layout_constraintTop_toBottomOf="@+id/name"
                 tools:text="by Jordan Vogn-Roberts" />
 
+            <TextView
+                android:id="@+id/nextContact"
+                style="@style/ContactListItem.SecondaryText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/verticalGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/lastContact"
+                tools:text="by Jordan Vogn-Roberts" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="@style/ContactListItem.RatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:progressTint="@color/red300"
+                android:secondaryProgressTint="@color/red300"
+                app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"
+                app:layout_constraintStart_toStartOf="@+id/verticalGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/nextContact"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/name"
+                style="@style/ContactListItem.PrimaryText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/verticalGuideline"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Kong Skull Island" />
+
             <android.support.constraint.Guideline
                 android:id="@+id/verticalGuideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="124dp" />
+                app:layout_constraintGuide_begin="156dp" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/horizontalGuideline"
@@ -114,18 +144,121 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_begin="148dp" />
 
+            <TextView
+                android:id="@+id/rating"
+                style="@style/ContactListItem.Rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:drawableEnd="@drawable/ic_trending_up_green_24dp"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:text="4 / 5"
+
+                app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
+                app:layout_constraintStart_toEndOf="@+id/ratingBar"
+                app:layout_constraintTop_toTopOf="@+id/ratingBar" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/horizontalInfoGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="172dp" />
+
+            <TextView
+                android:id="@+id/infoHeader"
+                style="@style/ContactListItem.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Contact Information"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/horizontalInfoGuideline" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:alpha="0.5"
+                android:background="@color/grey500"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/infoHeader" />
+
+            <TextView
+                android:id="@+id/categories"
+                style="@style/ContactListItem.Category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Friends | School | Yoga"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+            <TextView
+                android:id="@+id/linkedContact"
+                style="@style/ContactListItem.InfoText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Linked with no contact"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/categories" />
+
+            <TextView
+                android:id="@+id/reminderTitle"
+                style="@style/ContactListItem.InfoText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Reminder is set to:"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linkedContact" />
+
+            <TextView
+                android:id="@+id/reminder"
+                style="@style/ContactListItem.InfoText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:lineSpacingMultiplier="1.25"
+                android:text="•\t\tEvery 6 weeks ± 7 days\n•\t\tMonday to Friday\n•\t\t9:00 - 15:00"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/reminderTitle" />
+
+            <TextView
+                android:id="@+id/birthday"
+                style="@style/ContactListItem.InfoText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Birthday: not set"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/reminder" />
+
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
-
-    <TextView
-        android:id="@+id/belowPhotoText"
-        style="@style/ContactListItem.SecondaryText"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center_vertical"
-        android:text="in 2h 15m"
-        app:layout_constraintBottom_toBottomOf="@+id/infoCard"
-        app:layout_constraintStart_toStartOf="@+id/photoCard"
-        app:layout_constraintTop_toBottomOf="@+id/photoCard" />
 
 </android.support.constraint.ConstraintLayout>

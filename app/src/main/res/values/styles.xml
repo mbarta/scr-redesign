@@ -20,8 +20,7 @@
 
     <style name="AppTheme.NoActionBar.Transparent" parent="AppTheme.NoActionBar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:windowTranslucentStatus">true</item>
-
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -86,6 +85,29 @@
         <item name="android:paddingTop">2dp</item>
         <item name="android:numStars">5</item>
         <item name="android:stepSize">1</item>
+    </style>
+
+    <style name="ContactListItem.Rating" parent="ContactListItem.SecondaryText">
+        <item name="android:fontFamily">"sans-serif"</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ContactListItem.Title" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/deep_purple600</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">"sans-serif-medium"</item>
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="ContactListItem.Category" parent="ContactListItem.SecondaryText">
+        <item name="android:textColor">@color/grey800</item>
+    </style>
+
+    <style name="ContactListItem.InfoText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/grey600</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">"sans-serif"</item>
     </style>
 
 </resources>
