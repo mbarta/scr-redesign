@@ -14,9 +14,7 @@ import com.squareup.picasso.Picasso
  * Image manipulation utils
  */
 
-fun ImageView.loadUrl(url: String) {
-    Picasso.with(context).load(url).into(this)
-}
+fun ImageView.loadUrl(url: String) = Picasso.with(context).load(url).into(this)
 
 fun Bitmap.blur(ctx: Context, blurRadius: Float = 21f): Bitmap {
     val rs = RenderScript.create(ctx)

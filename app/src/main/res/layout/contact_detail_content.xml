@@ -88,7 +88,7 @@
                 tools:text="Kong Skull Island" />
 
             <TextView
-                android:id="@+id/nextContact"
+                android:id="@+id/lastContact"
                 style="@style/ContactListItem.SecondaryText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

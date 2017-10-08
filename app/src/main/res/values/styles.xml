@@ -82,4 +82,10 @@
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
     </style>
 
+    <style name="ContactListItem.RatingBar" parent="Widget.AppCompat.RatingBar.Small">
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:numStars">5</item>
+        <item name="android:stepSize">1</item>
+    </style>
+
 </resources>

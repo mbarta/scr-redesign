@@ -106,7 +106,7 @@ class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDet
         toolbarArcBackground.setBitmapByUrl(contact.photo)
 
         name.text = "${contact.firstName} ${contact.lastName}"
-        nextContact.text = "Next contact: ${contact.nextContact}"
+        lastContact.text = "Next contact: ${contact.nextContact}"
 
         frequency.text = contact.contactFreq
 
