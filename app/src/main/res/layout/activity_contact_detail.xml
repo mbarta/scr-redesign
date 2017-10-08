@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             app:contentScrim="@color/deep_purple600"
             app:statusBarScrim="@color/black_transparent"
+            app:scrimAnimationDuration="200"
             app:titleEnabled="false"
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">

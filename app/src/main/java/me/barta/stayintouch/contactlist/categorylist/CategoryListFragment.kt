@@ -56,16 +56,16 @@ class CategoryListFragment : MVPFragment<CategoryListContract.View, CategoryList
     }
 
     override fun presentLoadedData(data: List<ContactPerson>) {
-        val adapter = CategoryListAdapter(data, { contact, photoView -> startDetailActivityForContact(contact, photoView) })
+        val adapter = CategoryListAdapter(data, { contact, photoView, infoView -> startDetailActivityForContact(contact, photoView, infoView) })
         list.adapter = adapter
     }
 
-    private fun startDetailActivityForContact(contact: ContactPerson, photoView: View) {
+    private fun startDetailActivityForContact(contact: ContactPerson, photoView: View, infoView: View) {
         val intent = Intent(context, ContactDetailActivity::class.java)
         intent.putExtra(ContactDetailActivity.CONTACT_ID, contact.id)
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
-                Pair.create(photoView, photoView.transitionName))
+                Pair.create(photoView, photoView.transitionName),
+                Pair.create(infoView, infoView.transitionName))
         startActivity(intent, options.toBundle())
     }
-
 }

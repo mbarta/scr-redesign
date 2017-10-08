@@ -3,8 +3,10 @@ package me.barta.stayintouch.contactdetail
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
+import android.support.v4.app.SharedElementCallback
 import android.support.v4.content.ContextCompat
 import android.view.MenuItem
+import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
 import com.squareup.picasso.Callback
@@ -29,6 +31,7 @@ class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDet
     companion object {
         const val CONTACT_ID = "ContactIdExtra"
         const val SHARED_PICTURE_ID = "ContactPicture"
+        const val SHARED_INFO_CARD_ID = "ContactInfoCard"
     }
 
     override fun createComponent(): ContactDetailComponent =
@@ -38,16 +41,27 @@ class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDet
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contact_detail)
 
+        setUpSharedElementListener()
+
         supportPostponeEnterTransition()
 
-        infoCardContents.alpha = 0f
         setUpViews()
+    }
+
+    private fun setUpSharedElementListener() {
+        this.setEnterSharedElementCallback(object : SharedElementCallback() {
+            override fun onSharedElementStart(sharedElementNames: MutableList<String>, sharedElements: MutableList<View>, sharedElementSnapshots: MutableList<View>) {
+                super.onSharedElementStart(sharedElementNames, sharedElements, sharedElementSnapshots)
+                sharedElements.find { it.id == R.id.infoCard }?.findViewById<View>(R.id.infoCardContents)?.alpha = 0f
+            }
+        })
     }
 
     override fun onResume() {
         super.onResume()
         val contactId = intent?.extras?.getInt(CONTACT_ID) ?: -1
         photoCard.transitionName = SHARED_PICTURE_ID + contactId
+        infoCard.transitionName = SHARED_INFO_CARD_ID + contactId
 
         presenter.loadContactById(contactId)
     }

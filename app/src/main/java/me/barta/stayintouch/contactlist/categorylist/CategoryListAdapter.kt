@@ -18,7 +18,7 @@ import java.util.*
 /**
  * Adapter for contact list
  */
-class CategoryListAdapter(private val contactList: List<ContactPerson>, private val listener: (ContactPerson, View) -> Unit)
+class CategoryListAdapter(private val contactList: List<ContactPerson>, private val listener: (ContactPerson, View, View) -> Unit)
     : RecyclerView.Adapter<CategoryListAdapter.ContactViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
@@ -34,11 +34,12 @@ class CategoryListAdapter(private val contactList: List<ContactPerson>, private 
 
     class ContactViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(item: ContactPerson, listener: (ContactPerson, View) -> Unit) = with(itemView) {
+        fun bind(item: ContactPerson, listener: (ContactPerson, View, View) -> Unit) = with(itemView) {
             ViewCompat.setTransitionName(itemView.photoCard, ContactDetailActivity.SHARED_PICTURE_ID + item.id)
+            ViewCompat.setTransitionName(itemView.infoCard, ContactDetailActivity.SHARED_INFO_CARD_ID + item.id)
 
             photo.loadUrl(item.photo)
-            setOnClickListener { listener(item, itemView.photoCard) }
+            setOnClickListener { listener(item, itemView.photoCard, itemView.infoCard) }
 
             val pt = PrettyTime(Locale.getDefault())
 
