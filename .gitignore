@@ -32,8 +32,8 @@
 hs_err_pid*
 ### Android template
 # Built application files
-*.apk
-*.ap_
+#*.apk
+#*.ap_
 
 # Files for the ART/Dalvik VM
 *.dex
