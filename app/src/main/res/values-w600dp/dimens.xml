@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Tablets 7" and bigger (in portrait)-->
+    <integer name="contact_list_span">1</integer>
+</resources>

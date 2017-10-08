@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.Fragment
 import android.support.v4.util.Pair
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,7 +52,11 @@ class CategoryListFragment : MVPFragment<CategoryListContract.View, CategoryList
     }
 
     private fun setUpViews() {
-        list.layoutManager = LinearLayoutManager(context)
+//        list.layoutManager = LinearLayoutManager(context)
+        val spanSize = resources.getInteger(R.integer.contact_list_span)
+        val gridLayoutManager = GridLayoutManager(context, spanSize)
+
+        list.layoutManager = gridLayoutManager
     }
 
     override fun presentLoadedData(data: List<ContactPerson>) {
