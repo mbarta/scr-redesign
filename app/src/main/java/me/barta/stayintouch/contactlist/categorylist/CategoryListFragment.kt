@@ -4,7 +4,6 @@ package me.barta.stayintouch.contactlist.categorylist
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.app.Fragment
 import android.support.v4.util.Pair
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
@@ -19,14 +18,13 @@ import me.barta.stayintouch.datastore.models.ContactPerson
 
 
 /**
- * A simple [Fragment] subclass.
- * Use the [CategoryListFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Fragment containing a list of contacts for a category
  */
 class CategoryListFragment : MVPFragment<CategoryListContract.View, CategoryListPresenter, CategoryListComponent>(), CategoryListContract.View {
-    companion object {
 
+    companion object {
         const val CATEGORY_ID = "CategoryIdExtra"
+
         @JvmStatic fun newInstance(categoryId: Int): CategoryListFragment {
             val args = Bundle()
             args.putInt(CATEGORY_ID, categoryId)
@@ -34,8 +32,8 @@ class CategoryListFragment : MVPFragment<CategoryListContract.View, CategoryList
             fragment.arguments = args
             return fragment
         }
-
     }
+
     override fun createComponent(): CategoryListComponent =
             DaggerCategoryListComponent.builder().applicationComponent(StayInTouchApplication.component).build()
 
@@ -52,7 +50,6 @@ class CategoryListFragment : MVPFragment<CategoryListContract.View, CategoryList
     }
 
     private fun setUpViews() {
-//        list.layoutManager = LinearLayoutManager(context)
         val spanSize = resources.getInteger(R.integer.contact_list_span)
         val gridLayoutManager = GridLayoutManager(context, spanSize)
 

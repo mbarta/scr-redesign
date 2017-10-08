@@ -41,9 +41,7 @@ fun RatingBar.setColoredRating(@IntRange(from=1, to=5) ratingVal: Int, colorList
         R.color.red300, R.color.red300, R.color.orange300, R.color.orange300, R.color.light_green300)) {
     val ratingColorIdx = ratingVal - 1
 
-    if (ratingColorIdx >= colorList.size) {
-        return
-    } else {
+    if (ratingColorIdx < colorList.size) {
         val ratingColor = ContextCompat.getColorStateList(context, colorList[ratingColorIdx])
         with(this) {
             rating = ratingVal.toFloat()

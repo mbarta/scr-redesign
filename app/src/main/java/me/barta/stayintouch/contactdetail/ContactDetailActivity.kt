@@ -126,13 +126,13 @@ class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDet
 
         val pt = PrettyTime(Locale.getDefault())
 
-        name.text = "${contact.firstName} ${contact.lastName}"
-        lastContact.text = "Contacted: ${pt.format(contact.lastContact.toLegacyDate())}"
-        nextContact.text = "Next in: ${pt.format(contact.nextContact.toLegacyDate())}"
+        name.text = getString(R.string.contact_name, contact.firstName, contact.lastName)
+        lastContact.text = getString(R.string.last_contact, pt.format(contact.lastContact.toLegacyDate()))
+        nextContact.text = getString(R.string.next_contact, pt.format(contact.nextContact.toLegacyDate()))
 
         val colorList: Array<Int> = arrayOf(R.color.red300, R.color.red300, R.color.orange300, R.color.orange300, R.color.light_green300)
         ratingBar.setColoredRating(contact.karma, colorList)
-        rating.text = "${contact.karma} / 5"
+        rating.text = getString(R.string.rating, contact.karma)
         rating.setTextColor(ContextCompat.getColorStateList(this,colorList[contact.karma - 1]))
 
         frequency.text = contact.contactFreq
@@ -140,7 +140,8 @@ class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDet
 
     override fun onEnterAnimationComplete() {
         super.onEnterAnimationComplete()
-        val slideAnim = AnimationUtils.loadAnimation(this@ContactDetailActivity, R.anim.slide_from_bottom)
+
+        val slideAnim = AnimationUtils.loadAnimation(this, R.anim.slide_from_bottom)
         contactButton.startAnimation(slideAnim)
 
         val alphaAnim = infoCardContents.animate()

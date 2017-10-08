@@ -1,4 +1,8 @@
 <resources>
-    <string name="app_name">Smart Contact Reminder</string>
-    <string name="action_settings">Settings</string>
+
+    <string name="contact_name">%s %s</string>
+    <string name="last_contact">Contacted: %s</string>
+    <string name="next_contact">Next in: %s</string>
+    <string name="rating">%d / 5</string>
+
 </resources>

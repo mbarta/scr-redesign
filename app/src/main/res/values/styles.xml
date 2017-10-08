@@ -9,8 +9,6 @@
 
         <item name="android:windowBackground">@color/background</item>
         <item name="android:windowContentTransitions">true</item>
-        <item name="android:windowEnterTransition">@transition/default_window_fade</item>
-        <item name="android:windowExitTransition">@transition/default_window_fade</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
@@ -24,10 +22,6 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="AppTheme.ToolbarTitle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title" />
 
     <style name="AppTheme.TabLayout" parent="Widget.Design.TabLayout">
         <item name="tabBackground">?attr/selectableItemBackground</item>
@@ -65,15 +59,6 @@
         <item name="android:fontFamily">"sans-serif-medium"</item>
         <item name="android:lines">1</item>
         <item name="android:ellipsize">end</item>
-    </style>
-
-    <style name="ContactListItem.Button" parent="Widget.AppCompat.Button.Borderless">
-        <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:lines">1</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:minHeight">36dp</item>
-        <item name="android:minWidth">36dp</item>
     </style>
 
     <style name="ContactListItem.ActionItem" parent="">

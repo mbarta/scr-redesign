@@ -67,7 +67,7 @@ class ContactListActivity : MVPActivity<ContactListContract.View, ContactListPre
                         val textView = tab.customView as TextView
                         textView.animateTextSize(resources.getFontSize(R.dimen.tab_text_size),
                                 resources.getFontSize(R.dimen.tab_text_selected_size),
-                                250)
+                                200)
 
                     }
 
@@ -77,7 +77,7 @@ class ContactListActivity : MVPActivity<ContactListContract.View, ContactListPre
                         val textView = tab.customView as TextView
                         textView.animateTextSize(resources.getFontSize(R.dimen.tab_text_selected_size),
                                 resources.getFontSize(R.dimen.tab_text_size),
-                                250)
+                                200)
                     }
                 })
 

@@ -8,9 +8,7 @@ import me.barta.stayintouch.datastore.models.ContactCategory
  * Contract between ContactListActivity and ContactListPresenter
  */
 interface ContactListContract {
-    interface View : MVPContract.View {
-
-    }
+    interface View : MVPContract.View
 
     interface Presenter<V : View> : MVPContract.Presenter<V> {
         fun loadCategories(): List<ContactCategory>

@@ -43,9 +43,9 @@ class CategoryListAdapter(private val contactList: List<ContactPerson>, private 
 
             val pt = PrettyTime(Locale.getDefault())
 
-            name.text = "${item.firstName} ${item.lastName}"
-            lastContact.text = "Contacted: ${pt.format(item.lastContact.toLegacyDate())}"
-            nextContact.text = "Next in: ${pt.format(item.nextContact.toLegacyDate())}"
+            name.text = resources.getString(R.string.contact_name, item.firstName, item.lastName)
+            lastContact.text = resources.getString(R.string.last_contact, pt.format(item.lastContact.toLegacyDate()))
+            nextContact.text = resources.getString(R.string.next_contact, pt.format(item.nextContact.toLegacyDate()))
 
             ratingBar.setColoredRating(item.karma)
         }

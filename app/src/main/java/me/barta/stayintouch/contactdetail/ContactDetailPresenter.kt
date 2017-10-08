@@ -16,5 +16,4 @@ constructor(private val databaseHelper: DatabaseHelper) :
         val contact = databaseHelper.loadContactById(contactId)
         getView()?.displayContact(contact)
     }
-
 }
