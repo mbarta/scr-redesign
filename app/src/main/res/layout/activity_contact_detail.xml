@@ -81,6 +81,8 @@
         app:fabSize="normal"
         app:srcCompat="@drawable/ic_call_black_24dp"
         android:tint="@color/white"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_anchor="@id/scrollView"
         app:layout_anchorGravity="bottom|end"
         app:layout_behavior="me.barta.stayintouch.views.ContactButtonScrollingBehavior"/>

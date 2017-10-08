@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingEnd="16dp"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     tools:background="@color/colorPrimary"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="81dp">
@@ -25,7 +27,7 @@
     <ImageView
         android:id="@+id/navigation_menu"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:tint="@color/white_transparent"
         android:tintMode="src_in"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,9 +38,12 @@
     <ImageView
         android:id="@+id/action_serach"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:tint="@color/white_transparent"
         android:tintMode="src_in"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

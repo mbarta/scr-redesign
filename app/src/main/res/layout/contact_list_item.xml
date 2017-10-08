@@ -31,6 +31,7 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/infoCard"
+        android:foreground="?attr/selectableItemBackground"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -147,8 +148,10 @@
         android:layout_marginEnd="8dp"
         android:background="@drawable/rectangle"
         android:clickable="true"
+        android:focusable="true"
         android:elevation="8dp"
         android:tint="@android:color/white"
+        android:foreground="?attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="@+id/infoCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_call_black_24dp" />

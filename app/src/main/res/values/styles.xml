@@ -78,7 +78,6 @@
 
     <style name="ContactListItem.ActionItem" parent="">
         <item name="android:tint">@color/grey500</item>
-        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
     </style>
 
     <style name="ContactListItem.RatingBar" parent="Widget.AppCompat.RatingBar.Small">

@@ -19,6 +19,9 @@
         android:layout_marginTop="32dp"
         app:cardCornerRadius="2dp"
         app:cardElevation="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
         app:layout_constraintEnd_toEndOf="@+id/infoCard"
         app:layout_constraintStart_toEndOf="@+id/photoCard"
         app:layout_constraintTop_toTopOf="parent">
