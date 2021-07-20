@@ -16,8 +16,13 @@ import coil.imageLoader
 import coil.load
 import coil.request.ImageRequest
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_contact_detail.*
+import kotlinx.android.synthetic.main.activity_contact_detail.appBar
+import kotlinx.android.synthetic.main.activity_contact_detail.toolbar
+import kotlinx.android.synthetic.main.activity_contact_detail.toolbarArcBackground
+import kotlinx.android.synthetic.main.activity_contact_list.*
 import kotlinx.android.synthetic.main.contact_detail_content.*
 import me.barta.stayintouch.R
 import me.barta.stayintouch.common.utils.karmaColorList
@@ -54,7 +59,7 @@ class ContactDetailActivity : AppCompatActivity(R.layout.activity_contact_detail
                 is Success -> handleSuccess(state.data)
                 is Failure -> {
                     supportStartPostponedEnterTransition()
-                    // TODO: show error
+                    handleError(state.throwable, contactId)
                 }
             }
         }
@@ -135,6 +140,13 @@ class ContactDetailActivity : AppCompatActivity(R.layout.activity_contact_detail
         rating.setTextColor(ContextCompat.getColor(this, karmaColorList[contact.karma - 1]))
 
         frequency.text = contact.contactFreq
+    }
+
+    private fun handleError(error: Throwable, contactId: Int) {
+        Snackbar.make(coordinatorLayout, R.string.error_loading_contact, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.retry) { viewModel.loadContactById(contactId) }
+                .setAnchorView(anchor)
+                .show()
     }
 
     override fun onEnterAnimationComplete() {

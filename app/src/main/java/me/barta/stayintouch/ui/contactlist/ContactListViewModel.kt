@@ -10,7 +10,6 @@ import me.barta.stayintouch.common.viewstate.Failure
 import me.barta.stayintouch.common.viewstate.Loading
 import me.barta.stayintouch.common.viewstate.SimpleScreenViewState
 import me.barta.stayintouch.common.viewstate.Success
-import me.barta.stayintouch.network.FakeApi
 import me.barta.stayintouch.data.models.ContactCategory
 import me.barta.stayintouch.repository.ContactCategoryRepository
 import javax.inject.Inject
@@ -23,7 +22,7 @@ class ContactListViewModel @Inject constructor(private val categoryRepository: C
 
     init { loadCategories() }
 
-    private fun loadCategories() {
+    fun loadCategories() {
         viewModelScope.launch {
             _viewState.value = Loading
 

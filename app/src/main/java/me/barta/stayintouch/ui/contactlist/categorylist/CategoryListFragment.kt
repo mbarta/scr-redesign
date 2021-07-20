@@ -6,6 +6,7 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import android.view.View
 import android.view.animation.LayoutAnimationController
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,7 +43,10 @@ class CategoryListFragment : Fragment(R.layout.fragment_category_list) {
                     hideLoading()
                     handleSuccess(state.data)
                 }
-                is Failure -> hideLoading()
+                is Failure -> {
+                    hideLoading()
+                    handleError(state.throwable)
+                }
             }
         }
 
@@ -55,7 +59,15 @@ class CategoryListFragment : Fragment(R.layout.fragment_category_list) {
     }
 
     private fun handleSuccess(data: List<ContactPerson>) {
+        list.isVisible = true
+        errorLayout.isVisible = false
+
         adapter?.submitList(data)
+    }
+
+    private fun handleError(error: Throwable) {
+        list.isVisible = false
+        errorLayout.isVisible = true
     }
 
     private fun showLoading() {

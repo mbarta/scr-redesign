@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_contact_list.*
@@ -37,7 +38,10 @@ class ContactListActivity : AppCompatActivity(R.layout.activity_contact_list) {
                     hideLoading()
                     handleSuccess(state.data)
                 }
-                is Failure -> hideLoading()
+                is Failure -> {
+                    hideLoading()
+                    handleError(state.throwable)
+                }
             }
         }
     }
@@ -78,6 +82,12 @@ class ContactListActivity : AppCompatActivity(R.layout.activity_contact_list) {
 
         tabLayoutMediator = TabLayoutMediator(tabs, viewPager, true) { tab, position -> tab.text = categories[position].name }
         tabLayoutMediator?.attach()
+    }
+
+    private fun handleError(error: Throwable) {
+        Snackbar.make(rootLayout, R.string.error_loading_categories, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.retry) { viewModel.loadCategories() }
+                .show()
     }
 
     private fun getFragmentForPosition(position: Int): Fragment = CategoryListFragment.newInstance(position)
