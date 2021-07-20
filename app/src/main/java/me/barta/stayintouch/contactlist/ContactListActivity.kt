@@ -1,9 +1,10 @@
 package me.barta.stayintouch.contactlist
 
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.TabLayout
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.tabs.TabLayout
 import android.widget.TextView
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_contact_list.*
 import me.barta.stayintouch.R
 import me.barta.stayintouch.StayInTouchApplication
@@ -16,6 +17,8 @@ import me.barta.stayintouch.common.utils.getFontSize
  * Contact list Activity
  */
 class ContactListActivity : MVPActivity<ContactListContract.View, ContactListPresenter, ContactListComponent>(), ContactListContract.View {
+
+    private var tabLayoutMediator: TabLayoutMediator? = null
 
     override fun createComponent(): ContactListComponent =
             DaggerContactListComponent.builder().applicationComponent(StayInTouchApplication.component).build()
@@ -37,7 +40,7 @@ class ContactListActivity : MVPActivity<ContactListContract.View, ContactListPre
         actionBar?.title = ""
 
         appBar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
-            internal var scrollRange = -1
+            var scrollRange = -1
 
             override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
                 //Initialize the size of the scroll
@@ -53,34 +56,15 @@ class ContactListActivity : MVPActivity<ContactListContract.View, ContactListPre
     }
 
     private fun setUpViewPager() {
-        val mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager,
-                presenter.loadCategories()) { presenter.getFragmentForPosition(it) }
+        tabLayoutMediator?.detach()
+
+        val categories = presenter.loadCategories()
+        val mSectionsPagerAdapter = SectionsPagerAdapter(this, categories) { presenter.getFragmentForPosition(it) }
 
         viewPager.adapter = mSectionsPagerAdapter
         viewPager.offscreenPageLimit = 5
 
-        tabs.addOnTabSelectedListener(
-                object : TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
-                    override fun onTabSelected(tab: TabLayout.Tab) {
-                        super.onTabSelected(tab)
-
-                        val textView = tab.customView as TextView
-                        textView.animateTextSize(resources.getFontSize(R.dimen.tab_text_size),
-                                resources.getFontSize(R.dimen.tab_text_selected_size),
-                                200)
-
-                    }
-
-                    override fun onTabUnselected(tab: TabLayout.Tab) {
-                        super.onTabSelected(tab)
-
-                        val textView = tab.customView as TextView
-                        textView.animateTextSize(resources.getFontSize(R.dimen.tab_text_selected_size),
-                                resources.getFontSize(R.dimen.tab_text_size),
-                                200)
-                    }
-                })
-
-        tabs.setupWithViewPager(viewPager)
+        tabLayoutMediator = TabLayoutMediator(tabs, viewPager, true) { tab, position -> tab.text = categories[position].name }
+        tabLayoutMediator?.attach()
     }
 }

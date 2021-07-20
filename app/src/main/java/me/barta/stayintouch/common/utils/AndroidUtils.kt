@@ -3,9 +3,9 @@ package me.barta.stayintouch.common.utils
 import android.animation.FloatEvaluator
 import android.animation.ObjectAnimator
 import android.content.res.Resources
-import android.support.annotation.DimenRes
-import android.support.annotation.IntRange
-import android.support.v4.content.ContextCompat
+import androidx.annotation.DimenRes
+import androidx.annotation.IntRange
+import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

@@ -3,9 +3,9 @@ package me.barta.stayintouch.contactlist.categorylist
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.util.Pair
-import android.support.v7.widget.GridLayoutManager
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
+import androidx.recyclerview.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,7 +41,7 @@ class CategoryListFragment : MVPFragment<CategoryListContract.View, CategoryList
         return inflater.inflate(R.layout.fragment_category_list, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpViews()
 
@@ -57,14 +57,14 @@ class CategoryListFragment : MVPFragment<CategoryListContract.View, CategoryList
     }
 
     override fun presentLoadedData(data: List<ContactPerson>) {
-        val adapter = CategoryListAdapter(data, { contact, photoView, infoView -> startDetailActivityForContact(contact, photoView, infoView) })
+        val adapter = CategoryListAdapter(data) { contact, photoView, infoView -> startDetailActivityForContact(contact, photoView, infoView) }
         list.adapter = adapter
     }
 
     private fun startDetailActivityForContact(contact: ContactPerson, photoView: View, infoView: View) {
         val intent = Intent(context, ContactDetailActivity::class.java)
         intent.putExtra(ContactDetailActivity.CONTACT_ID, contact.id)
-        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity(),
                 Pair.create(photoView, photoView.transitionName),
                 Pair.create(infoView, infoView.transitionName))
         startActivity(intent, options.toBundle())

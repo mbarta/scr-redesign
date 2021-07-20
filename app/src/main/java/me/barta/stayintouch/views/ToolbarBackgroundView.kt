@@ -95,7 +95,7 @@ class ToolbarBackgroundView : View {
             override fun onBitmapLoaded(bitmap: Bitmap, arg1: LoadedFrom) {
                 loadedBitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height).blur(context)
 
-                bitmapShader = BitmapShader(loadedBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
+                bitmapShader = BitmapShader(loadedBitmap!!, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
                 paint.shader = bitmapShader
 
                 invalidate()

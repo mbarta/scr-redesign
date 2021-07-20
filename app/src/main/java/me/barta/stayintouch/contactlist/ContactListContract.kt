@@ -1,6 +1,6 @@
 package me.barta.stayintouch.contactlist
 
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import me.barta.stayintouch.common.ui.MVPContract
 import me.barta.stayintouch.datastore.models.ContactCategory
 

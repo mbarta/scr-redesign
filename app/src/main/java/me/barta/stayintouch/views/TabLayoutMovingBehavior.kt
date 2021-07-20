@@ -1,12 +1,13 @@
 package me.barta.stayintouch.views
 
 import android.content.Context
-import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.TabLayout
-import android.support.v4.view.ViewPager
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.tabs.TabLayout
+import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
+import androidx.viewpager2.widget.ViewPager2
 import me.barta.stayintouch.R
 
 /**
@@ -26,8 +27,8 @@ class TabLayoutMovingBehavior : CoordinatorLayout.Behavior<TabLayout> {
         }
     }
 
-    override fun layoutDependsOn(parent: CoordinatorLayout?, child: TabLayout?, dependency: View?): Boolean {
-        return dependency is ViewPager
+    override fun layoutDependsOn(parent: CoordinatorLayout, child: TabLayout, dependency: View): Boolean {
+        return dependency is ViewPager2
     }
 
     override fun onDependentViewChanged(parent: CoordinatorLayout, child: TabLayout, dependency: View): Boolean {

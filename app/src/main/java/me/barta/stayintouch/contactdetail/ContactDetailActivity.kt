@@ -2,13 +2,14 @@ package me.barta.stayintouch.contactdetail
 
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
-import android.support.v4.app.SharedElementCallback
-import android.support.v4.content.ContextCompat
+import com.google.android.material.appbar.AppBarLayout
+import androidx.core.app.SharedElementCallback
+import androidx.core.content.ContextCompat
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
+import androidx.core.content.res.ResourcesCompat
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_contact_detail.*
@@ -71,9 +72,10 @@ class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDet
     }
 
     private fun setUpToolbar() {
-        val toolbarIcon = resources.getDrawable(R.drawable.ic_arrow_back_24dp, theme)
-        toolbarIcon.setTint(ContextCompat.getColor(this, R.color.white_transparent))
-        toolbarIcon.setTintMode(PorterDuff.Mode.SRC_IN)
+        val toolbarIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_back_24dp, theme)?.apply {
+            setTint(ContextCompat.getColor(this@ContactDetailActivity, R.color.white_transparent))
+            setTintMode(PorterDuff.Mode.SRC_IN)
+        }
 
         toolbar.navigationIcon = toolbarIcon
         setSupportActionBar(toolbar)
@@ -82,7 +84,7 @@ class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDet
         supportActionBar?.title = ""
 
         appBar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
-            internal var scrollRange = -1
+            var scrollRange = -1
 
             override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
                 //Initialize the size of the scroll
