@@ -1,6 +1,5 @@
 package me.barta.stayintouch.ui.contactlist.categorylist
 
-
 import android.content.Intent
 import android.os.Bundle
 import androidx.core.app.ActivityOptionsCompat
@@ -9,10 +8,16 @@ import androidx.recyclerview.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_category_list.*
 import me.barta.stayintouch.R
 import me.barta.stayintouch.StayInTouchApplication
-import me.barta.stayintouch.ui.base.MVPFragment
+import me.barta.stayintouch.common.utils.viewstate.Failure
+import me.barta.stayintouch.common.utils.viewstate.Loading
+import me.barta.stayintouch.common.utils.viewstate.Success
 import me.barta.stayintouch.ui.contactdetail.ContactDetailActivity
 import me.barta.stayintouch.data.models.ContactPerson
 
@@ -20,45 +25,38 @@ import me.barta.stayintouch.data.models.ContactPerson
 /**
  * Fragment containing a list of contacts for a category
  */
-class CategoryListFragment : MVPFragment<CategoryListContract.View, CategoryListPresenter, CategoryListComponent>(), CategoryListContract.View {
+@AndroidEntryPoint
+class CategoryListFragment : Fragment(R.layout.fragment_category_list) {
 
-    companion object {
-        const val CATEGORY_ID = "CategoryIdExtra"
-
-        @JvmStatic fun newInstance(categoryId: Int): CategoryListFragment {
-            val args = Bundle()
-            args.putInt(CATEGORY_ID, categoryId)
-            val fragment = CategoryListFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
-    override fun createComponent(): CategoryListComponent =
-            DaggerCategoryListComponent.builder().applicationComponent(StayInTouchApplication.component).build()
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_category_list, container, false)
-    }
+    private val viewModel: CategoryListViewModel by viewModels()
+    private var adapter: CategoryListAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpViews()
 
         val categoryId = arguments?.getInt(CATEGORY_ID) ?: -1
-        presenter.loadContactsByCategory(categoryId)
+
+        viewModel.viewState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                Loading -> {}       // TODO
+                is Success -> handleSuccess(state.data)
+                is Failure -> {}    //TODO()
+            }
+        }
+
+        viewModel.loadContactsByCategory(categoryId)
     }
 
     private fun setUpViews() {
-        val spanSize = resources.getInteger(R.integer.contact_list_span)
-        val gridLayoutManager = GridLayoutManager(context, spanSize)
+        adapter = CategoryListAdapter { contact, photoView, infoView -> startDetailActivityForContact(contact, photoView, infoView) }
 
-        list.layoutManager = gridLayoutManager
+        list.layoutManager = LinearLayoutManager(context)
+        list.adapter = adapter
     }
 
-    override fun presentLoadedData(data: List<ContactPerson>) {
-        val adapter = CategoryListAdapter(data) { contact, photoView, infoView -> startDetailActivityForContact(contact, photoView, infoView) }
-        list.adapter = adapter
+    private fun handleSuccess(data: List<ContactPerson>) {
+        adapter?.submitList(data)
     }
 
     private fun startDetailActivityForContact(contact: ContactPerson, photoView: View, infoView: View) {
@@ -68,5 +66,17 @@ class CategoryListFragment : MVPFragment<CategoryListContract.View, CategoryList
                 Pair.create(photoView, photoView.transitionName),
                 Pair.create(infoView, infoView.transitionName))
         startActivity(intent, options.toBundle())
+    }
+
+    companion object {
+        const val CATEGORY_ID = "CategoryIdExtra"
+
+        fun newInstance(categoryId: Int): CategoryListFragment {
+            val args = Bundle()
+            args.putInt(CATEGORY_ID, categoryId)
+            val fragment = CategoryListFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

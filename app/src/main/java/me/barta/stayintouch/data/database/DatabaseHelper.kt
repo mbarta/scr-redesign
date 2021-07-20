@@ -5,11 +5,12 @@ import me.barta.stayintouch.data.models.ContactPerson
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
+import javax.inject.Inject
 
 /**
  * DB mock providing application data
  */
-class DatabaseHelper {
+class DatabaseHelper @Inject constructor() {
 
     companion object {
 

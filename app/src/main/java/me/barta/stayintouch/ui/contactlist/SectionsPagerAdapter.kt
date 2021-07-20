@@ -12,8 +12,8 @@ import me.barta.stayintouch.data.models.ContactCategory
  * one of the sections/tabs/pages.
  */
 class SectionsPagerAdapter(activity: AppCompatActivity, private val contactCategories: List<ContactCategory>,
-                           private val FragmentProviderFor: (Int) -> Fragment) : FragmentStateAdapter(activity) {
+                           private val fragmentProviderFor: (Int) -> Fragment) : FragmentStateAdapter(activity) {
 
     override fun getItemCount(): Int = contactCategories.size
-    override fun createFragment(position: Int): Fragment = FragmentProviderFor(position)
+    override fun createFragment(position: Int): Fragment = fragmentProviderFor(position)
 }

@@ -7,6 +7,8 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.SharedElementCallback
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -14,42 +16,47 @@ import coil.imageLoader
 import coil.load
 import coil.request.ImageRequest
 import com.google.android.material.appbar.AppBarLayout
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_contact_detail.*
 import kotlinx.android.synthetic.main.contact_detail_content.*
 import me.barta.stayintouch.R
-import me.barta.stayintouch.StayInTouchApplication
 import me.barta.stayintouch.common.utils.karmaColorList
 import me.barta.stayintouch.common.utils.setColoredRating
 import me.barta.stayintouch.common.utils.toLegacyDate
+import me.barta.stayintouch.common.utils.viewstate.Failure
+import me.barta.stayintouch.common.utils.viewstate.Loading
+import me.barta.stayintouch.common.utils.viewstate.Success
 import me.barta.stayintouch.data.models.ContactPerson
-import me.barta.stayintouch.ui.base.MVPActivity
 import org.ocpsoft.prettytime.PrettyTime
 import java.util.*
 
 
-/**
- * Contact detail Activity
- */
-class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDetailPresenter, ContactDetailComponent>(), ContactDetailContract.View {
+@AndroidEntryPoint
+class ContactDetailActivity : AppCompatActivity(R.layout.activity_contact_detail) {
 
-    companion object {
-        const val CONTACT_ID = "ContactIdExtra"
-        const val SHARED_PICTURE_ID = "ContactPicture"
-        const val SHARED_INFO_CARD_ID = "ContactInfoCard"
-    }
-
-    override fun createComponent(): ContactDetailComponent =
-            DaggerContactDetailComponent.builder().applicationComponent(StayInTouchApplication.component).build()
+    private val viewModel: ContactDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_contact_detail)
 
         setUpSharedElementListener()
-
         supportPostponeEnterTransition()
 
-        setUpViews()
+        val contactId = intent?.extras?.getInt(CONTACT_ID) ?: -1
+        photoCard.transitionName = SHARED_PICTURE_ID + contactId
+        infoCard.transitionName = SHARED_INFO_CARD_ID + contactId
+
+        setUpToolbar()
+
+        viewModel.viewState.observe(this) { state ->
+            when (state) {
+                Loading -> {}       // TODO
+                is Success -> handleSuccess(state.data)
+                is Failure -> {}    //TODO()
+            }
+        }
+
+        viewModel.loadContactById(contactId)
     }
 
     private fun setUpSharedElementListener() {
@@ -59,19 +66,6 @@ class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDet
                 sharedElements.find { it.id == R.id.infoCard }?.findViewById<View>(R.id.infoCardContents)?.alpha = 0f
             }
         })
-    }
-
-    override fun onResume() {
-        super.onResume()
-        val contactId = intent?.extras?.getInt(CONTACT_ID) ?: -1
-        photoCard.transitionName = SHARED_PICTURE_ID + contactId
-        infoCard.transitionName = SHARED_INFO_CARD_ID + contactId
-
-        presenter.loadContactById(contactId)
-    }
-
-    private fun setUpViews() {
-        setUpToolbar()
     }
 
     private fun setUpToolbar() {
@@ -110,7 +104,7 @@ class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDet
         return super.onOptionsItemSelected(item)
     }
 
-    override fun displayContact(contact: ContactPerson) {
+    private fun handleSuccess(contact: ContactPerson) {
         val request = ImageRequest.Builder(this)
                 .data(contact.photo)
                 .allowHardware(false)
@@ -154,5 +148,9 @@ class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDet
         alphaAnim.start()
     }
 
-
+    companion object {
+        const val CONTACT_ID = "ContactIdExtra"
+        const val SHARED_PICTURE_ID = "ContactPicture"
+        const val SHARED_INFO_CARD_ID = "ContactInfoCard"
+    }
 }

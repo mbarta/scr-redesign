@@ -3,6 +3,8 @@ package me.barta.stayintouch.ui.contactlist.categorylist
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import kotlinx.android.synthetic.main.contact_list_item.view.*
@@ -18,23 +20,20 @@ import java.util.*
 /**
  * Adapter for contact list
  */
-class CategoryListAdapter(private val contactList: List<ContactPerson>, private val listener: (ContactPerson, View, View) -> Unit)
-    : RecyclerView.Adapter<CategoryListAdapter.ContactViewHolder>() {
+class CategoryListAdapter(private val listener: (ContactPerson, View, View) -> Unit)
+    : ListAdapter<ContactPerson, CategoryListAdapter.ContactViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
-        return ContactViewHolder(parent.inflate(R.layout.contact_list_item))
+        return ContactViewHolder(parent.inflate(R.layout.contact_list_item), listener)
     }
 
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
-        holder.bind(contactList[position], listener)
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int = contactList.size
+    class ContactViewHolder(itemView: View, val listener: (ContactPerson, View, View) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
-
-    class ContactViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        fun bind(item: ContactPerson, listener: (ContactPerson, View, View) -> Unit) = with(itemView) {
+        fun bind(item: ContactPerson) = with(itemView) {
             ViewCompat.setTransitionName(itemView.photoCard, ContactDetailActivity.SHARED_PICTURE_ID + item.id)
             ViewCompat.setTransitionName(itemView.infoCard, ContactDetailActivity.SHARED_INFO_CARD_ID + item.id)
 
@@ -48,6 +47,18 @@ class CategoryListAdapter(private val contactList: List<ContactPerson>, private 
             nextContact.text = resources.getString(R.string.next_contact, pt.format(item.nextContact.toLegacyDate()))
 
             ratingBar.setColoredRating(item.karma)
+        }
+    }
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ContactPerson>() {
+            override fun areItemsTheSame(oldItem: ContactPerson, newItem: ContactPerson): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: ContactPerson, newItem: ContactPerson): Boolean {
+                return oldItem == newItem
+            }
         }
     }
 }
