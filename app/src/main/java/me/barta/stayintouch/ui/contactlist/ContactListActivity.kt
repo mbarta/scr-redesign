@@ -9,10 +9,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_contact_list.*
 import me.barta.stayintouch.R
-import me.barta.stayintouch.StayInTouchApplication
-import me.barta.stayintouch.common.utils.viewstate.Failure
-import me.barta.stayintouch.common.utils.viewstate.Loading
-import me.barta.stayintouch.common.utils.viewstate.Success
+import me.barta.stayintouch.common.viewstate.Failure
+import me.barta.stayintouch.common.viewstate.Loading
+import me.barta.stayintouch.common.viewstate.Success
 import me.barta.stayintouch.data.models.ContactCategory
 import me.barta.stayintouch.ui.contactlist.categorylist.CategoryListFragment
 

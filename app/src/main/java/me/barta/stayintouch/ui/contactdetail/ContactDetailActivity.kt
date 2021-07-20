@@ -23,9 +23,9 @@ import me.barta.stayintouch.R
 import me.barta.stayintouch.common.utils.karmaColorList
 import me.barta.stayintouch.common.utils.setColoredRating
 import me.barta.stayintouch.common.utils.toLegacyDate
-import me.barta.stayintouch.common.utils.viewstate.Failure
-import me.barta.stayintouch.common.utils.viewstate.Loading
-import me.barta.stayintouch.common.utils.viewstate.Success
+import me.barta.stayintouch.common.viewstate.Failure
+import me.barta.stayintouch.common.viewstate.Loading
+import me.barta.stayintouch.common.viewstate.Success
 import me.barta.stayintouch.data.models.ContactPerson
 import org.ocpsoft.prettytime.PrettyTime
 import java.util.*

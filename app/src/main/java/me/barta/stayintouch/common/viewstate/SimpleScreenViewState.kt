@@ -1,4 +1,4 @@
-package me.barta.stayintouch.common.utils.viewstate
+package me.barta.stayintouch.common.viewstate
 
 sealed class SimpleScreenViewState<out T : Any>
 

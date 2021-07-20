@@ -4,20 +4,16 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
-import androidx.recyclerview.widget.GridLayoutManager
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_category_list.*
 import me.barta.stayintouch.R
-import me.barta.stayintouch.StayInTouchApplication
-import me.barta.stayintouch.common.utils.viewstate.Failure
-import me.barta.stayintouch.common.utils.viewstate.Loading
-import me.barta.stayintouch.common.utils.viewstate.Success
+import me.barta.stayintouch.common.viewstate.Failure
+import me.barta.stayintouch.common.viewstate.Loading
+import me.barta.stayintouch.common.viewstate.Success
 import me.barta.stayintouch.ui.contactdetail.ContactDetailActivity
 import me.barta.stayintouch.data.models.ContactPerson
 
