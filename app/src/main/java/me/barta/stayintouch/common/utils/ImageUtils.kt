@@ -6,15 +6,11 @@ import android.renderscript.Allocation
 import android.renderscript.Element
 import android.renderscript.RenderScript
 import android.renderscript.ScriptIntrinsicBlur
-import android.widget.ImageView
-import com.squareup.picasso.Picasso
 
 
 /**
  * Image manipulation utils
  */
-
-fun ImageView.loadUrl(url: String) = Picasso.with(context).load(url).into(this)
 
 fun Bitmap.blur(ctx: Context, blurRadius: Float = 21f): Bitmap {
     val rs = RenderScript.create(ctx)

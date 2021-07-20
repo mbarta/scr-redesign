@@ -44,9 +44,7 @@ class ContactListActivity : MVPActivity<ContactListContract.View, ContactListPre
                     scrollRange = appBarLayout.totalScrollRange
                 }
 
-                val scale = 1 + verticalOffset / scrollRange.toFloat()
-
-                toolbarArcBackground.setScale(scale)
+                toolbarArcBackground.scale = 1 + verticalOffset / scrollRange.toFloat()
             }
         })
     }

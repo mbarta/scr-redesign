@@ -2,13 +2,9 @@ package me.barta.stayintouch.ui.views
 
 import android.content.Context
 import android.graphics.*
-import android.graphics.drawable.Drawable
 import android.media.ThumbnailUtils
 import android.util.AttributeSet
 import android.view.View
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.Picasso.LoadedFrom
-import com.squareup.picasso.Target
 import me.barta.stayintouch.R
 import me.barta.stayintouch.common.utils.blur
 
@@ -31,7 +27,18 @@ class ToolbarBackgroundView : View {
         resolveAttributes(attrs)
     }
 
-    private var scale: Float = 1.0f
+    var scale: Float = 1.0f
+        set(value) {
+            field = value
+            invalidate()
+        }
+
+    var bitmap: Bitmap? = null
+        set(value) {
+            field = value
+            processBitmapBackground()
+        }
+
     private var topMargin: Int = 0
 
     private val paint = Paint()
@@ -45,7 +52,6 @@ class ToolbarBackgroundView : View {
     private var gradientColourBottom = Color.TRANSPARENT
     private var gradient = LinearGradient(0f, 0f, 0f, 0f, gradientColourTop, gradientColourBottom, Shader.TileMode.MIRROR)
 
-    private var url: String? = null
     private var loadedBitmap: Bitmap? = null
     private var bitmapShader: BitmapShader? = null
 
@@ -75,36 +81,18 @@ class ToolbarBackgroundView : View {
         gradient = LinearGradient(0f, 0f, width.toFloat(), height * 2f, gradientColourTop, gradientColourBottom, Shader.TileMode.MIRROR)
         paint.shader = gradient
 
-        if (url != null) {
-            processBitmapBackground(url)
+        if (bitmap != null) {
+            processBitmapBackground()
         }
     }
 
-    fun setScale(scale: Float) {
-        this.scale = scale
+    private fun processBitmapBackground() {
+        loadedBitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height).blur(context)
+
+        bitmapShader = BitmapShader(loadedBitmap!!, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
+        paint.shader = bitmapShader
+
         invalidate()
-    }
-
-    fun setBitmapByUrl(url: String) {
-        this.url = url
-        invalidate()
-    }
-
-    private fun processBitmapBackground(url: String?) {
-        Picasso.with(context).load(url).into(object : Target {
-            override fun onBitmapLoaded(bitmap: Bitmap, arg1: LoadedFrom) {
-                loadedBitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height).blur(context)
-
-                bitmapShader = BitmapShader(loadedBitmap!!, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
-                paint.shader = bitmapShader
-
-                invalidate()
-            }
-
-            override fun onBitmapFailed(errorDrawable: Drawable?) {}
-
-            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {}
-        })
     }
 
     override fun onDraw(canvas: Canvas) {

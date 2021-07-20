@@ -1,26 +1,28 @@
 package me.barta.stayintouch.ui.contactdetail
 
 import android.graphics.PorterDuff
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import com.google.android.material.appbar.AppBarLayout
-import androidx.core.app.SharedElementCallback
-import androidx.core.content.ContextCompat
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
+import androidx.core.app.SharedElementCallback
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso
+import coil.imageLoader
+import coil.load
+import coil.request.ImageRequest
+import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.activity_contact_detail.*
 import kotlinx.android.synthetic.main.contact_detail_content.*
 import me.barta.stayintouch.R
 import me.barta.stayintouch.StayInTouchApplication
 import me.barta.stayintouch.common.utils.karmaColorList
-import me.barta.stayintouch.ui.base.MVPActivity
 import me.barta.stayintouch.common.utils.setColoredRating
 import me.barta.stayintouch.common.utils.toLegacyDate
 import me.barta.stayintouch.data.models.ContactPerson
+import me.barta.stayintouch.ui.base.MVPActivity
 import org.ocpsoft.prettytime.PrettyTime
 import java.util.*
 
@@ -93,9 +95,7 @@ class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDet
                     scrollRange = appBarLayout.totalScrollRange
                 }
 
-                val scale = 1 + verticalOffset / scrollRange.toFloat()
-
-                toolbarArcBackground.setScale(scale)
+                toolbarArcBackground.scale = 1 + verticalOffset / scrollRange.toFloat()
             }
         })
     }
@@ -111,21 +111,21 @@ class ContactDetailActivity : MVPActivity<ContactDetailContract.View, ContactDet
     }
 
     override fun displayContact(contact: ContactPerson) {
+        val request = ImageRequest.Builder(this)
+                .data(contact.photo)
+                .allowHardware(false)
+                .target(
+                        onSuccess = { result ->
+                            toolbarArcBackground.bitmap = (result as BitmapDrawable).bitmap
+                            supportStartPostponedEnterTransition()
+                        },
+                        onError = { supportStartPostponedEnterTransition() }
+                )
+                .build()
 
-        Picasso.with(this)
-                .load(contact.photo)
-                .noFade()
-                .into(photo, object : Callback {
-                    override fun onSuccess() {
-                        supportStartPostponedEnterTransition()
-                    }
+        imageLoader.enqueue(request)
 
-                    override fun onError() {
-                        supportStartPostponedEnterTransition()
-                    }
-                })
-
-        toolbarArcBackground.setBitmapByUrl(contact.photo)
+        photo.load(contact.photo)
 
         val pt = PrettyTime(Locale.getDefault())
 

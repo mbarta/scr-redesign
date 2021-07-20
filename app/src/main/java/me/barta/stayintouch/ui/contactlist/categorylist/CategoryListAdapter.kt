@@ -1,17 +1,17 @@
 package me.barta.stayintouch.ui.contactlist.categorylist
 
-import androidx.core.view.ViewCompat
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import kotlinx.android.synthetic.main.contact_list_item.view.*
 import me.barta.stayintouch.R
 import me.barta.stayintouch.common.utils.inflate
-import me.barta.stayintouch.common.utils.loadUrl
 import me.barta.stayintouch.common.utils.setColoredRating
 import me.barta.stayintouch.common.utils.toLegacyDate
-import me.barta.stayintouch.ui.contactdetail.ContactDetailActivity
 import me.barta.stayintouch.data.models.ContactPerson
+import me.barta.stayintouch.ui.contactdetail.ContactDetailActivity
 import org.ocpsoft.prettytime.PrettyTime
 import java.util.*
 
@@ -38,7 +38,7 @@ class CategoryListAdapter(private val contactList: List<ContactPerson>, private 
             ViewCompat.setTransitionName(itemView.photoCard, ContactDetailActivity.SHARED_PICTURE_ID + item.id)
             ViewCompat.setTransitionName(itemView.infoCard, ContactDetailActivity.SHARED_INFO_CARD_ID + item.id)
 
-            photo.loadUrl(item.photo)
+            photo.load(item.photo) { allowHardware(false) }
             setOnClickListener { listener(item, itemView.photoCard, itemView.infoCard) }
 
             val pt = PrettyTime(Locale.getDefault())
