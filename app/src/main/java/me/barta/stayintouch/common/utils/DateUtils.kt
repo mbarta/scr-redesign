@@ -1,7 +1,7 @@
 package me.barta.stayintouch.common.utils
 
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.ZoneId
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.util.*
 
 /**

@@ -1,7 +1,6 @@
 package me.barta.stayintouch
 
 import android.app.Application
-import com.jakewharton.threetenabp.AndroidThreeTen
 import me.barta.stayintouch.common.di.ApplicationComponent
 import me.barta.stayintouch.common.di.ApplicationModule
 import me.barta.stayintouch.common.di.DaggerApplicationComponent
@@ -23,8 +22,5 @@ internal class StayInTouchApplication : Application() {
                 .applicationModule(ApplicationModule(this))
                 .databaseModule(DatabaseModule())
                 .build()
-
-        // Initialise new Date and Time API
-        AndroidThreeTen.init(this)
     }
 }

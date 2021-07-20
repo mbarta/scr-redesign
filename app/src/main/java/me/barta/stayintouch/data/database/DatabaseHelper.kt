@@ -2,8 +2,8 @@ package me.barta.stayintouch.data.database
 
 import me.barta.stayintouch.data.models.ContactCategory
 import me.barta.stayintouch.data.models.ContactPerson
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalDateTime
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.*
 
 /**
@@ -56,16 +56,8 @@ class DatabaseHelper {
 
     fun loadCategories(): List<ContactCategory> = CATEGORIES
 
-    fun loadContactsForCategory(categoryId: Int): List<ContactPerson> = CONTACTS.shuffle()
+    fun loadContactsForCategory(categoryId: Int): List<ContactPerson> = CONTACTS.shuffled()
 
     fun loadContactById(contactId: Int): ContactPerson = CONTACTS.single { it.id == contactId }
-
-
-    private fun <T> Iterable<T>.shuffle(seed: Long? = null): List<T> {
-        val list = this.toMutableList()
-        val random = if (seed != null) Random(seed) else Random()
-        Collections.shuffle(list, random)
-        return list
-    }
 
 }

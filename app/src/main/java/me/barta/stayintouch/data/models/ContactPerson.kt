@@ -1,7 +1,7 @@
 package me.barta.stayintouch.data.models
 
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalDateTime
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 /**
  * DataClass representing a Contact person
