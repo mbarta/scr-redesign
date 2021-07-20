@@ -8,7 +8,7 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="81dp">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/photoCard"
         android:layout_width="112dp"
         android:layout_height="112dp"
@@ -27,9 +27,9 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop" />
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/infoCard"
         android:foreground="?attr/selectableItemBackground"
         android:layout_width="0dp"
@@ -131,7 +131,7 @@
                 app:layout_constraintVertical_bias="1.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/photoGuideline"
@@ -150,7 +150,7 @@
         android:clickable="true"
         android:focusable="true"
         android:elevation="8dp"
-        android:tint="@android:color/white"
+        app:tint="@android:color/white"
         android:foreground="?attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="@+id/infoCard"
         app:layout_constraintEnd_toEndOf="parent"

@@ -18,6 +18,8 @@ import me.barta.stayintouch.R
  * Android utility functions
  */
 
+val karmaColorList: Array<Int> = arrayOf(R.color.red300, R.color.red300, R.color.orange300, R.color.orange300, R.color.light_green300)
+
 fun ViewGroup.inflate(layoutRes: Int): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, false)
 }
@@ -34,7 +36,7 @@ fun TextView.animateTextSize(startSize: Float, endSize: Float, animDuration: Lon
         interpolator = AccelerateDecelerateInterpolator()
     }
 
-    this.post({ animator.start() })
+    this.post { animator.start() }
 }
 
 fun RatingBar.setColoredRating(@IntRange(from=1, to=5) ratingVal: Int, colorList: Array<Int> = arrayOf(

@@ -2,7 +2,7 @@ package me.barta.stayintouch.common.di
 
 import dagger.Module
 import dagger.Provides
-import me.barta.stayintouch.datastore.database.DatabaseHelper
+import me.barta.stayintouch.data.database.DatabaseHelper
 
 @Module
 class DatabaseModule {

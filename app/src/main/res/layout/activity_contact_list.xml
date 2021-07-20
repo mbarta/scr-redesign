@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="me.barta.stayintouch.contactlist.ContactListActivity">
+    tools:context=".ui.contactlist.ContactListActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp">
 
-                <me.barta.stayintouch.views.ToolbarBackgroundView
+                <me.barta.stayintouch.ui.views.ToolbarBackgroundView
                 android:id="@+id/toolbarArcBackground"
                 app:topMargin="?attr/actionBarSize"
                 app:gradientColorStart="@color/indigo700"
@@ -58,12 +58,12 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <me.barta.stayintouch.views.ScrTabLayout
+    <me.barta.stayintouch.ui.views.ScrTabLayout
         android:id="@+id/tabs"
         style="@style/AppTheme.TabLayout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:layout_behavior="me.barta.stayintouch.views.TabLayoutMovingBehavior" />
+        app:layout_behavior="me.barta.stayintouch.ui.views.TabLayoutMovingBehavior" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"

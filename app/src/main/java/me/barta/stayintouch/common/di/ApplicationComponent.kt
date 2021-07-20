@@ -2,7 +2,7 @@ package me.barta.stayintouch.common.di
 
 import android.content.Context
 import dagger.Component
-import me.barta.stayintouch.datastore.database.DatabaseHelper
+import me.barta.stayintouch.data.database.DatabaseHelper
 
 
 @ApplicationScope

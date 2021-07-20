@@ -10,7 +10,7 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="81dp">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/contactFreq"
         android:layout_width="0dp"
         android:layout_height="48dp"
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:drawableEnd="@drawable/ic_arrow_drop_down_grey_24dp"
+            app:drawableEndCompat="@drawable/ic_arrow_drop_down_grey_24dp"
             android:drawablePadding="8dp"
             android:gravity="center"
             android:paddingStart="8dp"
@@ -39,9 +39,9 @@
             android:textAppearance="@style/ContactListItem.SecondaryText"
             android:textSize="16sp"
             tools:text="Once a week" />
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/photoCard"
         android:layout_width="132dp"
         android:layout_height="180dp"
@@ -58,9 +58,9 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop" />
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/infoCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -153,7 +153,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:drawableEnd="@drawable/ic_trending_up_green_24dp"
+                app:drawableEndCompat="@drawable/ic_trending_up_green_24dp"
                 android:drawablePadding="16dp"
                 android:gravity="center_vertical"
                 android:text="4 / 5"
@@ -262,6 +262,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/reminder" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

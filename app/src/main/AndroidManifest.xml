@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".contactlist.ContactListActivity"
+            android:name="me.barta.stayintouch.ui.contactlist.ContactListActivity"
             android:theme="@style/AppTheme.NoActionBar.Transparent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,13 +21,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".contactdetail.ContactDetailActivity"
+            android:name="me.barta.stayintouch.ui.contactdetail.ContactDetailActivity"
             android:label=""
-            android:parentActivityName=".contactlist.ContactListActivity"
+            android:parentActivityName="me.barta.stayintouch.ui.contactlist.ContactListActivity"
             android:theme="@style/AppTheme.NoActionBar.Transparent">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.barta.stayintouch.contactlist.ContactListActivity" />
+                android:value="me.barta.stayintouch.ui.contactlist.ContactListActivity" />
         </activity>
     </application>
 

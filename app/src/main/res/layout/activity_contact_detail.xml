@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="me.barta.stayintouch.contactdetail.ContactDetailActivity">
+    tools:context=".ui.contactdetail.ContactDetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="360dp">
 
-                <me.barta.stayintouch.views.ToolbarBackgroundView
+                <me.barta.stayintouch.ui.views.ToolbarBackgroundView
                     android:id="@+id/toolbarArcBackground"
                     android:fitsSystemWindows="true"
                     app:topMargin="?attr/actionBarSize"
@@ -46,7 +46,7 @@
 
             </FrameLayout>
 
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:background="@android:color/transparent"
                 app:layout_collapseMode="pin"
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize">
 
-            </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -80,11 +80,11 @@
         android:layout_marginBottom="32dp"
         app:fabSize="normal"
         app:srcCompat="@drawable/ic_call_black_24dp"
-        android:tint="@color/white"
+        app:tint="@color/white"
         android:clickable="true"
         android:focusable="true"
         app:layout_anchor="@id/scrollView"
         app:layout_anchorGravity="bottom|end"
-        app:layout_behavior="me.barta.stayintouch.views.ContactButtonScrollingBehavior"/>
+        app:layout_behavior="me.barta.stayintouch.ui.views.ContactButtonScrollingBehavior"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
