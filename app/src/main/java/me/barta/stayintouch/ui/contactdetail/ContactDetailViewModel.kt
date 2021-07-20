@@ -10,14 +10,10 @@ import me.barta.stayintouch.common.viewstate.Failure
 import me.barta.stayintouch.common.viewstate.Loading
 import me.barta.stayintouch.common.viewstate.SimpleScreenViewState
 import me.barta.stayintouch.common.viewstate.Success
-import me.barta.stayintouch.network.FakeApi
 import me.barta.stayintouch.data.models.ContactPerson
 import me.barta.stayintouch.repository.ContactPersonRepository
 import javax.inject.Inject
 
-/**
- * Contact detail ViewModel
- */
 @HiltViewModel
 class ContactDetailViewModel @Inject constructor(private val contactRepository: ContactPersonRepository) : ViewModel() {
 

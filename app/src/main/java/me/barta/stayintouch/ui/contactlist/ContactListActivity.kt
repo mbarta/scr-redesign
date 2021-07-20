@@ -3,7 +3,6 @@ package me.barta.stayintouch.ui.contactlist
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
@@ -17,10 +16,6 @@ import me.barta.stayintouch.common.viewstate.Success
 import me.barta.stayintouch.data.models.ContactCategory
 import me.barta.stayintouch.ui.contactlist.categorylist.CategoryListFragment
 
-
-/**
- * Contact list Activity
- */
 @AndroidEntryPoint
 class ContactListActivity : AppCompatActivity(R.layout.activity_contact_list) {
 
@@ -33,7 +28,7 @@ class ContactListActivity : AppCompatActivity(R.layout.activity_contact_list) {
 
         viewModel.viewState.observe(this) { state ->
             when (state) {
-                Loading -> showLoading()
+                is Loading -> showLoading()
                 is Success -> {
                     hideLoading()
                     handleSuccess(state.data)
@@ -75,10 +70,8 @@ class ContactListActivity : AppCompatActivity(R.layout.activity_contact_list) {
     private fun handleSuccess(categories: List<ContactCategory>) {
         tabLayoutMediator?.detach()
 
-        val mSectionsPagerAdapter = SectionsPagerAdapter(this, categories) { getFragmentForPosition(it) }
-
-        viewPager.adapter = mSectionsPagerAdapter
-        viewPager.offscreenPageLimit = 5
+        viewPager.adapter = SectionsPagerAdapter(this, categories) { pos -> CategoryListFragment.newInstance(pos) }
+        viewPager.offscreenPageLimit = categories.size
 
         tabLayoutMediator = TabLayoutMediator(tabs, viewPager, true) { tab, position -> tab.text = categories[position].name }
         tabLayoutMediator?.attach()
@@ -89,6 +82,4 @@ class ContactListActivity : AppCompatActivity(R.layout.activity_contact_list) {
                 .setAction(R.string.retry) { viewModel.loadCategories() }
                 .show()
     }
-
-    private fun getFragmentForPosition(position: Int): Fragment = CategoryListFragment.newInstance(position)
 }

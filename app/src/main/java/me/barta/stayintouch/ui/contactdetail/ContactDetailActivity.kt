@@ -35,7 +35,6 @@ import me.barta.stayintouch.data.models.ContactPerson
 import org.ocpsoft.prettytime.PrettyTime
 import java.util.*
 
-
 @AndroidEntryPoint
 class ContactDetailActivity : AppCompatActivity(R.layout.activity_contact_detail) {
 
@@ -44,36 +43,48 @@ class ContactDetailActivity : AppCompatActivity(R.layout.activity_contact_detail
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setUpSharedElementListener()
-        supportPostponeEnterTransition()
-
         val contactId = intent?.extras?.getInt(CONTACT_ID) ?: -1
-        photoCard.transitionName = SHARED_PICTURE_ID + contactId
-        infoCard.transitionName = SHARED_INFO_CARD_ID + contactId
 
+        setUpSharedElementTransition(contactId)
         setUpToolbar()
 
         viewModel.viewState.observe(this) { state ->
             when (state) {
-                Loading -> Unit // No loading due to shared element transition
+                is Loading -> Unit // No loading due to shared element transition
                 is Success -> handleSuccess(state.data)
-                is Failure -> {
-                    supportStartPostponedEnterTransition()
-                    handleError(state.throwable, contactId)
-                }
+                is Failure -> handleError(state.throwable, contactId)
             }
         }
 
         viewModel.loadContactById(contactId)
     }
 
-    private fun setUpSharedElementListener() {
-        this.setEnterSharedElementCallback(object : SharedElementCallback() {
+    private fun setUpSharedElementTransition(contactId: Int) {
+        setEnterSharedElementCallback(object : SharedElementCallback() {
             override fun onSharedElementStart(sharedElementNames: MutableList<String>, sharedElements: MutableList<View>, sharedElementSnapshots: MutableList<View>) {
                 super.onSharedElementStart(sharedElementNames, sharedElements, sharedElementSnapshots)
                 sharedElements.find { it.id == R.id.infoCard }?.findViewById<View>(R.id.infoCardContents)?.alpha = 0f
             }
         })
+
+        supportPostponeEnterTransition()
+
+        photoCard.transitionName = SHARED_PICTURE_ID + contactId
+        infoCard.transitionName = SHARED_INFO_CARD_ID + contactId
+    }
+
+    override fun onEnterAnimationComplete() {
+        super.onEnterAnimationComplete()
+
+        val slideAnim = AnimationUtils.loadAnimation(this, R.anim.slide_from_bottom)
+        contactButton.startAnimation(slideAnim)
+
+        val alphaAnim = infoCardContents.animate()
+                .alpha(1.0f)
+                .setDuration(500)
+                .setInterpolator(LinearInterpolator())
+
+        alphaAnim.start()
     }
 
     private fun setUpToolbar() {
@@ -143,24 +154,12 @@ class ContactDetailActivity : AppCompatActivity(R.layout.activity_contact_detail
     }
 
     private fun handleError(error: Throwable, contactId: Int) {
+        supportStartPostponedEnterTransition()
+
         Snackbar.make(coordinatorLayout, R.string.error_loading_contact, Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.retry) { viewModel.loadContactById(contactId) }
                 .setAnchorView(anchor)
                 .show()
-    }
-
-    override fun onEnterAnimationComplete() {
-        super.onEnterAnimationComplete()
-
-        val slideAnim = AnimationUtils.loadAnimation(this, R.anim.slide_from_bottom)
-        contactButton.startAnimation(slideAnim)
-
-        val alphaAnim = infoCardContents.animate()
-                .alpha(1.0f)
-                .setDuration(500)
-                .setInterpolator(LinearInterpolator())
-
-        alphaAnim.start()
     }
 
     companion object {

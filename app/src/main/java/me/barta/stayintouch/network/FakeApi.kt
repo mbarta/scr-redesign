@@ -15,14 +15,13 @@ class FakeApi @Inject constructor(private val delayHelper: NetworkDelayHelper) {
         delayHelper.simulateNetworkDelay()
         return CATEGORIES
     }
-    
+
     suspend fun loadContactsForCategory(categoryId: Int): List<ContactPersonDto> {
         delayHelper.simulateNetworkDelay()
         return CONTACTS.shuffled()
     }
 
     suspend fun loadContactById(contactId: Int): ContactPersonDto {
-        delayHelper.simulateNetworkDelay(1)
         return CONTACTS.single { it.id == contactId }
     }
 

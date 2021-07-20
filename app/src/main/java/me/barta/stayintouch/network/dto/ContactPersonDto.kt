@@ -3,9 +3,6 @@ package me.barta.stayintouch.network.dto
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-/**
- * DataClass representing a Contact person DTO
- */
 data class ContactPersonDto(
         val id: Int,
         val firstName: String,

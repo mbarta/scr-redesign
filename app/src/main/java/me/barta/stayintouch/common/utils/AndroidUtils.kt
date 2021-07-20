@@ -3,19 +3,19 @@ package me.barta.stayintouch.common.utils
 import android.animation.FloatEvaluator
 import android.animation.ObjectAnimator
 import android.content.res.Resources
-import androidx.annotation.DimenRes
-import androidx.annotation.IntRange
-import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.annotation.DimenRes
+import androidx.annotation.IntRange
+import androidx.core.content.ContextCompat
 import me.barta.stayintouch.R
 
 /**
- * Android utility functions
+ * Android view utility functions
  */
 
 val karmaColorList: Array<Int> = arrayOf(R.color.red300, R.color.red300, R.color.orange300, R.color.orange300, R.color.light_green300)
@@ -39,7 +39,7 @@ fun TextView.animateTextSize(startSize: Float, endSize: Float, animDuration: Lon
     this.post { animator.start() }
 }
 
-fun RatingBar.setColoredRating(@IntRange(from=1, to=5) ratingVal: Int, colorList: Array<Int> = arrayOf(
+fun RatingBar.setColoredRating(@IntRange(from = 1, to = 5) ratingVal: Int, colorList: Array<Int> = arrayOf(
         R.color.red300, R.color.red300, R.color.orange300, R.color.orange300, R.color.light_green300)) {
     val ratingColorIdx = ratingVal - 1
 

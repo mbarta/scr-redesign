@@ -1,12 +1,12 @@
 package me.barta.stayintouch.ui.views
 
 import android.content.Context
-import androidx.coordinatorlayout.widget.CoordinatorLayout
-import com.google.android.material.tabs.TabLayout
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
 import me.barta.stayintouch.R
 
 /**

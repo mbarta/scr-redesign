@@ -17,9 +17,6 @@ import me.barta.stayintouch.ui.contactdetail.ContactDetailActivity
 import org.ocpsoft.prettytime.PrettyTime
 import java.util.*
 
-/**
- * Adapter for contact list
- */
 class CategoryListAdapter(private val listener: (ContactPerson, View, View) -> Unit)
     : ListAdapter<ContactPerson, CategoryListAdapter.ContactViewHolder>(DIFF_CALLBACK) {
 

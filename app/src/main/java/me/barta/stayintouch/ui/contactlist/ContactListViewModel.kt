@@ -20,7 +20,9 @@ class ContactListViewModel @Inject constructor(private val categoryRepository: C
     private val _viewState: MutableLiveData<SimpleScreenViewState<List<ContactCategory>>> = MutableLiveData()
     val viewState: LiveData<SimpleScreenViewState<List<ContactCategory>>> = _viewState
 
-    init { loadCategories() }
+    init {
+        loadCategories()
+    }
 
     fun loadCategories() {
         viewModelScope.launch {
