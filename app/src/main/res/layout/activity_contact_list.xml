@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="me.barta.stayintouch.contactlist.ContactListActivity">
+    tools:context=".ui.contactlist.ContactListActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
         android:fitsSystemWindows="true"
         android:background="@android:color/transparent"
@@ -16,7 +17,7 @@
         app:elevation="0dp"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.design.widget.CollapsingToolbarLayout
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:fitsSystemWindows="true"
             android:layout_width="match_parent"
@@ -32,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp">
 
-                <me.barta.stayintouch.views.ToolbarBackgroundView
+                <me.barta.stayintouch.ui.views.ToolbarBackgroundView
                 android:id="@+id/toolbarArcBackground"
                 app:topMargin="?attr/actionBarSize"
                 app:gradientColorStart="@color/indigo700"
@@ -42,8 +43,9 @@
 
             </FrameLayout>
 
-            <android.support.v7.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
+                app:contentInsetStart="0dp"
                 android:background="@android:color/transparent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 android:layout_width="match_parent"
@@ -51,21 +53,21 @@
 
                 <include layout="@layout/toolbar_content" />
 
-            </android.support.v7.widget.Toolbar>
+            </androidx.appcompat.widget.Toolbar>
 
-        </android.support.design.widget.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <me.barta.stayintouch.views.ScrTabLayout
+    <me.barta.stayintouch.ui.views.ScrTabLayout
         android:id="@+id/tabs"
         style="@style/AppTheme.TabLayout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:layout_behavior="me.barta.stayintouch.views.TabLayoutMovingBehavior" />
+        app:layout_behavior="me.barta.stayintouch.ui.views.TabLayoutMovingBehavior" />
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -73,4 +75,4 @@
         app:behavior_overlapTop="96dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -5,4 +5,10 @@
     <string name="next_contact">Next in: %s</string>
     <string name="rating">%d / 5</string>
 
+    <string name="error_loading_categories">Error loading contact categories</string>
+    <string name="error_loading_contacts">Error loading contacts</string>
+    <string name="error_loading_contact">Error loading the contact</string>
+
+    <string name="retry">Retry</string>
+
 </resources>
