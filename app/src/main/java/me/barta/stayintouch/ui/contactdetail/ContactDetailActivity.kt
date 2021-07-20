@@ -50,9 +50,12 @@ class ContactDetailActivity : AppCompatActivity(R.layout.activity_contact_detail
 
         viewModel.viewState.observe(this) { state ->
             when (state) {
-                Loading -> {}       // TODO
+                Loading -> Unit // No loading due to shared element transition
                 is Success -> handleSuccess(state.data)
-                is Failure -> {}    //TODO()
+                is Failure -> {
+                    supportStartPostponedEnterTransition()
+                    // TODO: show error
+                }
             }
         }
 

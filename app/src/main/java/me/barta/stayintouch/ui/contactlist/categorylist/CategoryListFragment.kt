@@ -5,11 +5,13 @@ import android.os.Bundle
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import android.view.View
+import android.view.animation.LayoutAnimationController
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_category_list.*
+import kotlinx.android.synthetic.main.toolbar_content.*
 import me.barta.stayintouch.R
 import me.barta.stayintouch.common.viewstate.Failure
 import me.barta.stayintouch.common.viewstate.Loading
@@ -35,9 +37,12 @@ class CategoryListFragment : Fragment(R.layout.fragment_category_list) {
 
         viewModel.viewState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                Loading -> {}       // TODO
-                is Success -> handleSuccess(state.data)
-                is Failure -> {}    //TODO()
+                Loading -> showLoading()
+                is Success -> {
+                    hideLoading()
+                    handleSuccess(state.data)
+                }
+                is Failure -> hideLoading()
             }
         }
 
@@ -46,13 +51,19 @@ class CategoryListFragment : Fragment(R.layout.fragment_category_list) {
 
     private fun setUpViews() {
         adapter = CategoryListAdapter { contact, photoView, infoView -> startDetailActivityForContact(contact, photoView, infoView) }
-
-        list.layoutManager = LinearLayoutManager(context)
         list.adapter = adapter
     }
 
     private fun handleSuccess(data: List<ContactPerson>) {
         adapter?.submitList(data)
+    }
+
+    private fun showLoading() {
+        contactsLoadingProgress.show()
+    }
+
+    private fun hideLoading() {
+        contactsLoadingProgress.hide()
     }
 
     private fun startDetailActivityForContact(contact: ContactPerson, photoView: View, infoView: View) {

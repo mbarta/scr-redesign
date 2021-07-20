@@ -8,6 +8,7 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_contact_list.*
+import kotlinx.android.synthetic.main.toolbar_content.*
 import me.barta.stayintouch.R
 import me.barta.stayintouch.common.viewstate.Failure
 import me.barta.stayintouch.common.viewstate.Loading
@@ -31,9 +32,12 @@ class ContactListActivity : AppCompatActivity(R.layout.activity_contact_list) {
 
         viewModel.viewState.observe(this) { state ->
             when (state) {
-                Loading -> {}       // TODO
-                is Success -> handleSuccess(state.data)
-                is Failure -> {}    //TODO()
+                Loading -> showLoading()
+                is Success -> {
+                    hideLoading()
+                    handleSuccess(state.data)
+                }
+                is Failure -> hideLoading()
             }
         }
     }
@@ -54,6 +58,14 @@ class ContactListActivity : AppCompatActivity(R.layout.activity_contact_list) {
                 toolbarArcBackground.scale = 1 + verticalOffset / scrollRange.toFloat()
             }
         })
+    }
+
+    private fun showLoading() {
+        categoryLoadingProgress.show()
+    }
+
+    private fun hideLoading() {
+        categoryLoadingProgress.hide()
     }
 
     private fun handleSuccess(categories: List<ContactCategory>) {
