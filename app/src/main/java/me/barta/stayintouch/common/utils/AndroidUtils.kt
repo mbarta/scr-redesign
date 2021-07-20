@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.DimenRes
 import androidx.annotation.IntRange
 import androidx.core.content.ContextCompat
@@ -50,5 +51,11 @@ fun RatingBar.setColoredRating(@IntRange(from = 1, to = 5) ratingVal: Int, color
             progressTintList = ratingColor
             secondaryProgressTintList = ratingColor
         }
+    }
+}
+
+fun View.setNotImplementedClickListener() {
+    this.setOnClickListener {
+        Toast.makeText(context, R.string.not_implemented, Toast.LENGTH_SHORT).show()
     }
 }

@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.contact_detail_content.*
 import me.barta.stayintouch.R
 import me.barta.stayintouch.common.utils.karmaColorList
 import me.barta.stayintouch.common.utils.setColoredRating
+import me.barta.stayintouch.common.utils.setNotImplementedClickListener
 import me.barta.stayintouch.common.utils.toLegacyDate
 import me.barta.stayintouch.common.viewstate.Failure
 import me.barta.stayintouch.common.viewstate.Loading
@@ -46,7 +47,7 @@ class ContactDetailActivity : AppCompatActivity(R.layout.activity_contact_detail
         val contactId = intent?.extras?.getInt(CONTACT_ID) ?: -1
 
         setUpSharedElementTransition(contactId)
-        setUpToolbar()
+        setUpViews()
 
         viewModel.viewState.observe(this) { state ->
             when (state) {
@@ -85,6 +86,12 @@ class ContactDetailActivity : AppCompatActivity(R.layout.activity_contact_detail
                 .setInterpolator(LinearInterpolator())
 
         alphaAnim.start()
+    }
+
+    private fun setUpViews() {
+        setUpToolbar()
+        contactButton.setNotImplementedClickListener()
+        contactFreq.setNotImplementedClickListener()
     }
 
     private fun setUpToolbar() {

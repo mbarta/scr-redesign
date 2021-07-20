@@ -10,6 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_contact_list.*
 import kotlinx.android.synthetic.main.toolbar_content.*
 import me.barta.stayintouch.R
+import me.barta.stayintouch.common.utils.setNotImplementedClickListener
 import me.barta.stayintouch.common.viewstate.Failure
 import me.barta.stayintouch.common.viewstate.Loading
 import me.barta.stayintouch.common.viewstate.Success
@@ -57,6 +58,9 @@ class ContactListActivity : AppCompatActivity(R.layout.activity_contact_list) {
                 toolbarArcBackground.scale = 1 + verticalOffset / scrollRange.toFloat()
             }
         })
+
+        navigation_menu.setNotImplementedClickListener()
+        action_search.setNotImplementedClickListener()
     }
 
     private fun showLoading() {

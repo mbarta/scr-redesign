@@ -41,8 +41,7 @@
         android:layout_height="wrap_content"
         app:tint="@color/white_transparent"
         android:tintMode="src_in"
-        android:clickable="true"
-        android:focusable="true"
+        android:padding="8dp"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,13 +50,12 @@
         app:srcCompat="@drawable/ic_menu_24dp" />
 
     <ImageView
-        android:id="@+id/action_serach"
+        android:id="@+id/action_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:tint="@color/white_transparent"
         android:tintMode="src_in"
-        android:clickable="true"
-        android:focusable="true"
+        android:padding="8dp"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

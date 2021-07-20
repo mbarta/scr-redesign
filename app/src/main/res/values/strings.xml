@@ -10,5 +10,6 @@
     <string name="error_loading_contact">Error loading the contact</string>
 
     <string name="retry">Retry</string>
+    <string name="not_implemented">Not implemented</string>
 
 </resources>

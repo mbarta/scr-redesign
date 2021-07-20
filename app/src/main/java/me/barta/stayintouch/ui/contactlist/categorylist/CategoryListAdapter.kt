@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.contact_list_item.view.*
 import me.barta.stayintouch.R
 import me.barta.stayintouch.common.utils.inflate
 import me.barta.stayintouch.common.utils.setColoredRating
+import me.barta.stayintouch.common.utils.setNotImplementedClickListener
 import me.barta.stayintouch.common.utils.toLegacyDate
 import me.barta.stayintouch.data.models.ContactPerson
 import me.barta.stayintouch.ui.contactdetail.ContactDetailActivity
@@ -44,6 +45,9 @@ class CategoryListAdapter(private val listener: (ContactPerson, View, View) -> U
             nextContact.text = resources.getString(R.string.next_contact, pt.format(item.nextContact.toLegacyDate()))
 
             ratingBar.setColoredRating(item.karma)
+
+            contactButton.setNotImplementedClickListener()
+            moreButton.setNotImplementedClickListener()
         }
     }
 

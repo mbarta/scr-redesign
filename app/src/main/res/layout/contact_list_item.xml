@@ -86,9 +86,8 @@
                 style="@style/ContactListItem.SecondaryText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginEnd="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -98,8 +97,12 @@
             <ImageView
                 android:id="@+id/moreButton"
                 style="@style/ContactListItem.ActionItem"
+                android:padding="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:translationX="8dp"
+                android:translationY="-8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_more_vert_black_24dp" />
@@ -140,21 +143,28 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="68dp" />
 
-    <ImageView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/contactButton"
         android:layout_width="64dp"
         android:layout_height="48dp"
         android:layout_marginBottom="12dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/rectangle"
-        android:clickable="true"
-        android:focusable="true"
-        android:elevation="8dp"
-        app:tint="@android:color/white"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="12dp"
         android:foreground="?attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="@+id/infoCard"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_call_black_24dp" />
+        app:srcCompat="@drawable/ic_call_black_24dp" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:background="@color/deep_purple600"
+            app:tint="@color/white"
+            app:srcCompat="@drawable/ic_call_black_24dp" />
+
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/infoCardGuideline"
