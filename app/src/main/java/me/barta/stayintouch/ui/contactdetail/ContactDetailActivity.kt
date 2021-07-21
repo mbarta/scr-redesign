@@ -18,21 +18,17 @@ import coil.request.ImageRequest
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_contact_detail.*
-import kotlinx.android.synthetic.main.activity_contact_detail.appBar
-import kotlinx.android.synthetic.main.activity_contact_detail.toolbar
-import kotlinx.android.synthetic.main.activity_contact_detail.toolbarArcBackground
-import kotlinx.android.synthetic.main.activity_contact_list.*
-import kotlinx.android.synthetic.main.contact_detail_content.*
 import me.barta.stayintouch.R
 import me.barta.stayintouch.common.utils.karmaColorList
 import me.barta.stayintouch.common.utils.setColoredRating
 import me.barta.stayintouch.common.utils.setNotImplementedClickListener
 import me.barta.stayintouch.common.utils.toLegacyDate
+import me.barta.stayintouch.common.viewbinding.viewBinding
 import me.barta.stayintouch.common.viewstate.Failure
 import me.barta.stayintouch.common.viewstate.Loading
 import me.barta.stayintouch.common.viewstate.Success
 import me.barta.stayintouch.data.models.ContactPerson
+import me.barta.stayintouch.databinding.ActivityContactDetailBinding
 import org.ocpsoft.prettytime.PrettyTime
 import java.util.*
 
@@ -40,9 +36,11 @@ import java.util.*
 class ContactDetailActivity : AppCompatActivity(R.layout.activity_contact_detail) {
 
     private val viewModel: ContactDetailViewModel by viewModels()
+    private val binding: ActivityContactDetailBinding by viewBinding(ActivityContactDetailBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
 
         val contactId = intent?.extras?.getInt(CONTACT_ID) ?: -1
 
@@ -70,17 +68,19 @@ class ContactDetailActivity : AppCompatActivity(R.layout.activity_contact_detail
 
         supportPostponeEnterTransition()
 
-        photoCard.transitionName = SHARED_PICTURE_ID + contactId
-        infoCard.transitionName = SHARED_INFO_CARD_ID + contactId
+        with(binding.content) {
+            photoCard.transitionName = SHARED_PICTURE_ID + contactId
+            infoCard.transitionName = SHARED_INFO_CARD_ID + contactId
+        }
     }
 
     override fun onEnterAnimationComplete() {
         super.onEnterAnimationComplete()
 
         val slideAnim = AnimationUtils.loadAnimation(this, R.anim.slide_from_bottom)
-        contactButton.startAnimation(slideAnim)
+        binding.contactButton.startAnimation(slideAnim)
 
-        val alphaAnim = infoCardContents.animate()
+        val alphaAnim = binding.content.infoCardContents.animate()
                 .alpha(1.0f)
                 .setDuration(500)
                 .setInterpolator(LinearInterpolator())
@@ -90,8 +90,9 @@ class ContactDetailActivity : AppCompatActivity(R.layout.activity_contact_detail
 
     private fun setUpViews() {
         setUpToolbar()
-        contactButton.setNotImplementedClickListener()
-        contactFreq.setNotImplementedClickListener()
+
+        binding.contactButton.setNotImplementedClickListener()
+        binding.content.contactFreq.setNotImplementedClickListener()
     }
 
     private fun setUpToolbar() {
@@ -100,13 +101,13 @@ class ContactDetailActivity : AppCompatActivity(R.layout.activity_contact_detail
             setTintMode(PorterDuff.Mode.SRC_IN)
         }
 
-        toolbar.navigationIcon = toolbarIcon
-        setSupportActionBar(toolbar)
+        binding.toolbar.navigationIcon = toolbarIcon
+        setSupportActionBar(binding.toolbar)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ""
 
-        appBar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
+        binding.appBar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
             var scrollRange = -1
 
             override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
@@ -115,7 +116,7 @@ class ContactDetailActivity : AppCompatActivity(R.layout.activity_contact_detail
                     scrollRange = appBarLayout.totalScrollRange
                 }
 
-                toolbarArcBackground.scale = 1 + verticalOffset / scrollRange.toFloat()
+                binding.toolbarArcBackground.scale = 1 + verticalOffset / scrollRange.toFloat()
             }
         })
     }
@@ -136,7 +137,7 @@ class ContactDetailActivity : AppCompatActivity(R.layout.activity_contact_detail
                 .allowHardware(false)
                 .target(
                         onSuccess = { result ->
-                            toolbarArcBackground.bitmap = (result as BitmapDrawable).bitmap
+                            binding.toolbarArcBackground.bitmap = (result as BitmapDrawable).bitmap
                             supportStartPostponedEnterTransition()
                         },
                         onError = { supportStartPostponedEnterTransition() }
@@ -145,27 +146,29 @@ class ContactDetailActivity : AppCompatActivity(R.layout.activity_contact_detail
 
         imageLoader.enqueue(request)
 
-        photo.load(contact.photo)
-
         val pt = PrettyTime(Locale.getDefault())
 
-        name.text = getString(R.string.contact_name, contact.firstName, contact.lastName)
-        lastContact.text = getString(R.string.last_contact, pt.format(contact.lastContact.toLegacyDate()))
-        nextContact.text = getString(R.string.next_contact, pt.format(contact.nextContact.toLegacyDate()))
+        with(binding.content) {
+            photo.load(contact.photo)
 
-        ratingBar.setColoredRating(contact.karma)
-        rating.text = getString(R.string.rating, contact.karma)
-        rating.setTextColor(ContextCompat.getColor(this, karmaColorList[contact.karma - 1]))
+            name.text = getString(R.string.contact_name, contact.firstName, contact.lastName)
+            lastContact.text = getString(R.string.last_contact, pt.format(contact.lastContact.toLegacyDate()))
+            nextContact.text = getString(R.string.next_contact, pt.format(contact.nextContact.toLegacyDate()))
 
-        frequency.text = contact.contactFreq
+            ratingBar.setColoredRating(contact.karma)
+            rating.text = getString(R.string.rating, contact.karma)
+            rating.setTextColor(ContextCompat.getColor(this@ContactDetailActivity, karmaColorList[contact.karma - 1]))
+
+            frequency.text = contact.contactFreq
+        }
     }
 
     private fun handleError(error: Throwable, contactId: Int) {
         supportStartPostponedEnterTransition()
 
-        Snackbar.make(coordinatorLayout, R.string.error_loading_contact, Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(binding.coordinatorLayout, R.string.error_loading_contact, Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.retry) { viewModel.loadContactById(contactId) }
-                .setAnchorView(anchor)
+                .setAnchorView(binding.anchor)
                 .show()
     }
 

@@ -51,7 +51,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize">
 
-                <include layout="@layout/toolbar_content" />
+                <include layout="@layout/toolbar_content"
+                    android:id="@+id/toolbarContent" />
 
             </androidx.appcompat.widget.Toolbar>
 

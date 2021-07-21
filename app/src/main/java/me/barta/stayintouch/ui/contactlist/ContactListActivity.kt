@@ -7,24 +7,27 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_contact_list.*
-import kotlinx.android.synthetic.main.toolbar_content.*
 import me.barta.stayintouch.R
 import me.barta.stayintouch.common.utils.setNotImplementedClickListener
+import me.barta.stayintouch.common.viewbinding.viewBinding
 import me.barta.stayintouch.common.viewstate.Failure
 import me.barta.stayintouch.common.viewstate.Loading
 import me.barta.stayintouch.common.viewstate.Success
 import me.barta.stayintouch.data.models.ContactCategory
+import me.barta.stayintouch.databinding.ActivityContactListBinding
 import me.barta.stayintouch.ui.contactlist.categorylist.CategoryListFragment
 
 @AndroidEntryPoint
-class ContactListActivity : AppCompatActivity(R.layout.activity_contact_list) {
+class ContactListActivity : AppCompatActivity() {
 
     private val viewModel: ContactListViewModel by viewModels()
+    private val binding: ActivityContactListBinding by viewBinding(ActivityContactListBinding::inflate)
+
     private var tabLayoutMediator: TabLayoutMediator? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
         setUpToolbar()
 
         viewModel.viewState.observe(this) { state ->
@@ -43,10 +46,10 @@ class ContactListActivity : AppCompatActivity(R.layout.activity_contact_list) {
     }
 
     private fun setUpToolbar() {
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
         actionBar?.title = ""
 
-        appBar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
+        binding.appBar.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
             var scrollRange = -1
 
             override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
@@ -55,34 +58,38 @@ class ContactListActivity : AppCompatActivity(R.layout.activity_contact_list) {
                     scrollRange = appBarLayout.totalScrollRange
                 }
 
-                toolbarArcBackground.scale = 1 + verticalOffset / scrollRange.toFloat()
+                binding.toolbarArcBackground.scale = 1 + verticalOffset / scrollRange.toFloat()
             }
         })
 
-        navigation_menu.setNotImplementedClickListener()
-        action_search.setNotImplementedClickListener()
+        with(binding.toolbarContent) {
+            navigationMenu.setNotImplementedClickListener()
+            actionSearch.setNotImplementedClickListener()
+        }
     }
 
     private fun showLoading() {
-        categoryLoadingProgress.show()
+        binding.toolbarContent.categoryLoadingProgress.show()
     }
 
     private fun hideLoading() {
-        categoryLoadingProgress.hide()
+        binding.toolbarContent.categoryLoadingProgress.hide()
     }
 
     private fun handleSuccess(categories: List<ContactCategory>) {
         tabLayoutMediator?.detach()
 
-        viewPager.adapter = SectionsPagerAdapter(this, categories) { pos -> CategoryListFragment.newInstance(pos) }
-        viewPager.offscreenPageLimit = categories.size
+        binding.viewPager.adapter = SectionsPagerAdapter(this, categories) { pos -> CategoryListFragment.newInstance(pos) }
+        binding.viewPager.offscreenPageLimit = categories.size
 
-        tabLayoutMediator = TabLayoutMediator(tabs, viewPager, true) { tab, position -> tab.text = categories[position].name }
+        tabLayoutMediator = TabLayoutMediator(binding.tabs, binding.viewPager, true) { tab, position ->
+            tab.text = categories[position].name
+        }
         tabLayoutMediator?.attach()
     }
 
     private fun handleError(error: Throwable) {
-        Snackbar.make(rootLayout, R.string.error_loading_categories, Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(binding.rootLayout, R.string.error_loading_categories, Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.retry) { viewModel.loadCategories() }
                 .show()
     }
