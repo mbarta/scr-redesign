@@ -15,15 +15,7 @@ import androidx.annotation.IntRange
 import androidx.core.content.ContextCompat
 import me.barta.stayintouch.R
 
-/**
- * Android view utility functions
- */
-
 val karmaColorList: Array<Int> = arrayOf(R.color.red300, R.color.red300, R.color.orange300, R.color.orange300, R.color.light_green300)
-
-fun ViewGroup.inflate(layoutRes: Int): View {
-    return LayoutInflater.from(context).inflate(layoutRes, this, false)
-}
 
 fun Resources.getFontSize(@DimenRes dimensionResource: Int): Float {
     return this.getDimension(dimensionResource) / this.displayMetrics.density

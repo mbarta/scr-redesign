@@ -64,6 +64,7 @@ class CategoryListFragment : Fragment(R.layout.fragment_category_list) {
         binding.errorLayout.isVisible = false
 
         adapter?.submitList(data)
+        binding.list.scheduleLayoutAnimation()
     }
 
     private fun handleError(error: Throwable) {

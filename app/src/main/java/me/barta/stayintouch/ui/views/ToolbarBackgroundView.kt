@@ -8,10 +8,6 @@ import android.view.View
 import me.barta.stayintouch.R
 import me.barta.stayintouch.common.utils.blur
 
-
-/**
- * Custom toolbar background view
- */
 class ToolbarBackgroundView : View {
     constructor(context: Context) : super(context)
 

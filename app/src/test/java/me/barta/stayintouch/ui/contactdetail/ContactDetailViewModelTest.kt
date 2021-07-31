@@ -20,6 +20,10 @@ import org.mockito.kotlin.*
 import java.lang.Exception
 import java.lang.RuntimeException
 
+/**
+ * A simple unit test for a ContactDetailViewModel (in our case, it doesn't really test much).
+ * A very similar implementation of unit tests would be for CategoryListViewModel and ContactListViewModel.
+ */
 @ExperimentalCoroutinesApi
 class ContactDetailViewModelTest {
 

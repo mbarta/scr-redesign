@@ -7,21 +7,18 @@ import android.renderscript.Element
 import android.renderscript.RenderScript
 import android.renderscript.ScriptIntrinsicBlur
 
-
-/**
- * Image manipulation utils
- */
-
 fun Bitmap.blur(ctx: Context, blurRadius: Float = 21f): Bitmap {
     val rs = RenderScript.create(ctx)
 
     val input = Allocation.createFromBitmap(rs, this)
     val output = Allocation.createTyped(rs, input.type)
 
-    val script = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs))
-    script.setRadius(blurRadius)
-    script.setInput(input)
-    script.forEach(output)
+    ScriptIntrinsicBlur.create(rs, Element.U8_4(rs)).apply {
+        setRadius(blurRadius)
+        setInput(input)
+        forEach(output)
+    }
+
     output.copyTo(this)
 
     return this

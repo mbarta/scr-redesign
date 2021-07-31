@@ -9,10 +9,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import me.barta.stayintouch.R
 
-/**
- * Behaviour for TabLayout - to be positioned below Toolbar
- */
-
 class TabLayoutMovingBehavior : CoordinatorLayout.Behavior<TabLayout> {
 
     private var topMargin: Int = 0

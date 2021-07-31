@@ -9,10 +9,6 @@ import me.barta.stayintouch.R
 import me.barta.stayintouch.common.utils.animateTextSize
 import me.barta.stayintouch.common.utils.getFontSize
 
-/**
- * TabLayout implementation with custom tab layout
- */
-
 class ScrTabLayout : TabLayout {
     constructor(context: Context) : super(context)
 
